@@ -3,6 +3,9 @@ package com.hilonggroupmes.domain.process;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -34,6 +37,8 @@ public class ProcedureInfo implements Serializable {
 	
 	private static final long serialVersionUID = -4888995133003966314L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer procedure_id;
 	
 	private String procedure_name;
