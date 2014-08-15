@@ -9,9 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 复合管信息实体类
+ * 复合(基)管信息实体类（工序流转用）
  * 
- * <p>记录复合管所涉及到的记录信息的明细列表
+ * <p>记录复合管所涉及到的记录信息的明细列表，由于基管编号和复合管编号一致，只在装配过衬管后
+ * 
+ * <p>类型才有所改变，便于数据记录统一，复合管和基管采用同一实体
  * 
  * <p>属性信息描述：
  * 
@@ -19,7 +21,7 @@ import javax.persistence.Table;
  * 
  * <p>complexpipe_num 复合管编号
  *	
- * <p>complexpipe_base 所用基管
+ * <p>complexpipe_basetype 所用基管规格
  *	
  * <p>complexpipe_line 所用衬管
  * 
@@ -49,7 +51,7 @@ public class ComplexPipeInfo implements Serializable {
 	
 	private Integer complexpipe_num;
 	
-	private Integer complexpipe_base;
+	private Integer complexpipe_basetype;
 	
 	private Integer complexpipe_line;
 	
@@ -77,12 +79,12 @@ public class ComplexPipeInfo implements Serializable {
 		this.complexpipe_num = complexpipe_num;
 	}
 
-	public Integer getComplexpipe_base() {
-		return complexpipe_base;
+	public Integer getComplexpipe_basetype() {
+		return complexpipe_basetype;
 	}
 
-	public void setComplexpipe_base(Integer complexpipe_base) {
-		this.complexpipe_base = complexpipe_base;
+	public void setComplexpipe_basetype(Integer complexpipe_basetype) {
+		this.complexpipe_basetype = complexpipe_basetype;
 	}
 
 	public Integer getComplexpipe_line() {
