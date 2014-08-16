@@ -32,7 +32,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name="MES_Order")
+@Table(name="MES_Plan")
 public class PlanInfo implements Serializable {
 	
 	private static final long serialVersionUID = -4823885965031312267L;

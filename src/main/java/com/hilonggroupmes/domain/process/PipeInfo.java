@@ -32,7 +32,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name="MES_LinePipe")
+@Table(name="MES_Pipe")
 public class PipeInfo implements Serializable {
 	
 	private static final long serialVersionUID = 7491704393770517116L;
