@@ -9,13 +9,13 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 衬管信息实体类（工序流转用）
+ * 基管、衬管信息实体类（工序流转用）
  * 
- * <p>记录衬管管所涉及到的记录信息的明细列表
+ * <p>记录基管、衬管所涉及到的记录信息的明细列表
  * 
  * <p>属性信息描述：
  * 
- * <p>pipe_Id 衬管主键
+ * <p>pipe_Id 基管、衬管主键
  *	
  * <p>pipe_num 编号
  *	
@@ -33,7 +33,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="MES_LinePipe")
-public class LinePipeInfo implements Serializable {
+public class PipeInfo implements Serializable {
 	
 	private static final long serialVersionUID = 7491704393770517116L;
 

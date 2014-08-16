@@ -21,9 +21,9 @@ import javax.persistence.Table;
  * 
  * <p>complexpipe_num 复合管编号
  *	
- * <p>complexpipe_basetype 所用基管规格
+ * <p>complexpipe_basepipe 所用基管
  *	
- * <p>complexpipe_line 所用衬管
+ * <p>complexpipe_linepipe 所用衬管
  * 
  * <p>complexpipe_type 复合管规格
  * 
@@ -55,9 +55,9 @@ public class ComplexPipeInfo implements Serializable {
 	
 	private Integer complexpipe_num;
 	
-	private Integer complexpipe_basetype;
+	private Integer complexpipe_basepipe;
 	
-	private Integer complexpipe_line;
+	private Integer complexpipe_linepipe;
 	
 	private Integer complexpipe_type;
 	
@@ -87,20 +87,20 @@ public class ComplexPipeInfo implements Serializable {
 		this.complexpipe_num = complexpipe_num;
 	}
 
-	public Integer getComplexpipe_basetype() {
-		return complexpipe_basetype;
+	public Integer getComplexpipe_basepipe() {
+		return complexpipe_basepipe;
 	}
 
-	public void setComplexpipe_basetype(Integer complexpipe_basetype) {
-		this.complexpipe_basetype = complexpipe_basetype;
+	public void setComplexpipe_basepipe(Integer complexpipe_basepipe) {
+		this.complexpipe_basepipe = complexpipe_basepipe;
 	}
 
-	public Integer getComplexpipe_line() {
-		return complexpipe_line;
+	public Integer getComplexpipe_linepipe() {
+		return complexpipe_linepipe;
 	}
 
-	public void setComplexpipe_line(Integer complexpipe_line) {
-		this.complexpipe_line = complexpipe_line;
+	public void setComplexpipe_linepipe(Integer complexpipe_linepipe) {
+		this.complexpipe_linepipe = complexpipe_linepipe;
 	}
 
 	public Integer getComplexpipe_type() {
