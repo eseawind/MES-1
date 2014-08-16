@@ -15,13 +15,13 @@ import javax.persistence.Table;
  * 
  * <p>属性信息描述：
  * 
- * product_id  产品信息主键
+ * <p>product_id  产品信息主键
  *	
- * product_name 产品名称
+ * <p>product_name 产品名称
  *	
- * product_code 产品编码
+ * <p>product_code 产品编码
  *	
- * product_spec 执行标准
+ * <p>product_spec 执行标准
  * 
  * @author fuweijie
  * 

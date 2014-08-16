@@ -1,5 +1,6 @@
 package com.hilonggroupmes.domain.plan;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -18,11 +19,9 @@ import javax.persistence.Table;
  * 
  * <p>plan_number 订单号
  * 
- * <p>plan_order 项目名称
+ * <p>plan_begintime 计划开始时间
  * 
- * <p>plan_begintime 合同号
- * 
- * <p>plan_endtime 交付单位
+ * <p>plan_endtime 计划完成时间
  * 
  * <p>plan_principal 负责人
  * 
@@ -34,8 +33,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="MES_Order")
-public class PlanInfo {
+public class PlanInfo implements Serializable {
 	
+	private static final long serialVersionUID = -4823885965031312267L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)	
    private Integer plan_id;

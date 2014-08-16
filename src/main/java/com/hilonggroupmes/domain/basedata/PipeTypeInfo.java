@@ -9,21 +9,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 钢管类型信息实体类
+ * 钢管原材料类型信息实体类
  * 
  * <p>记录钢管类型的相关属性信息 
  * 
  * <p>属性信息描述：
  * 
- * pipetype_id  钢管类型信息主键
+ * <p>pipetype_id  钢管类型信息主键
  *	
- * pipetype_name 类型名称
+ * <p>pipetype_name 类型名称
  *	
- * pipetype_spc 执行标准
+ * <p>pipetype_spc 执行标准
  *	
- * pipetype_steelgrade 钢级
+ * <p>pipetype_steelgrade 钢级
  *	
- * pipetype_type 钢管类型 ：1 基管   2 衬管   3 复合管
+ * <p>pipetype_type 钢管类型 ：1 基管   2 衬管
+ * 
+ * <p>pipetype_supplier
  * 
  * @author fuweijie
  * 
@@ -48,6 +50,8 @@ public class PipeTypeInfo implements Serializable {
 	private String pipetype_steelgrade;
 	
 	private Integer pipetype_type;
+	
+	private String pipetype_supplier;
 
 	public Integer getPipetype_id() {
 		return pipetype_id;
@@ -87,6 +91,14 @@ public class PipeTypeInfo implements Serializable {
 
 	public void setPipetype_type(Integer pipetype_type) {
 		this.pipetype_type = pipetype_type;
+	}
+
+	public String getPipetype_supplier() {
+		return pipetype_supplier;
+	}
+
+	public void setPipetype_supplier(String pipetype_supplier) {
+		this.pipetype_supplier = pipetype_supplier;
 	}
 
 }

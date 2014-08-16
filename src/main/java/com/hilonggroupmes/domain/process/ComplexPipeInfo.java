@@ -27,6 +27,10 @@ import javax.persistence.Table;
  * 
  * <p>complexpipe_type 复合管规格
  * 
+ * <p>complexpipe_length 复合管长度
+ * 
+ * <p>complexpipe_weight 复合管重量
+ * 
  * <p>complexpipe_forpro 所属项目订单
  * 
  * <p>complexpipe_state 复合管状态（可用、报废）
@@ -56,6 +60,10 @@ public class ComplexPipeInfo implements Serializable {
 	private Integer complexpipe_line;
 	
 	private Integer complexpipe_type;
+	
+	private Double complexpipe_length;
+	
+	private Double complexpipe_weight;
 	
 	private Integer complexpipe_forpro;
 	
@@ -101,6 +109,22 @@ public class ComplexPipeInfo implements Serializable {
 
 	public void setComplexpipe_type(Integer complexpipe_type) {
 		this.complexpipe_type = complexpipe_type;
+	}
+
+	public Double getComplexpipe_length() {
+		return complexpipe_length;
+	}
+
+	public void setComplexpipe_length(Double complexpipe_length) {
+		this.complexpipe_length = complexpipe_length;
+	}
+
+	public Double getComplexpipe_weight() {
+		return complexpipe_weight;
+	}
+
+	public void setComplexpipe_weight(Double complexpipe_weight) {
+		this.complexpipe_weight = complexpipe_weight;
 	}
 
 	public Integer getComplexpipe_forpro() {
