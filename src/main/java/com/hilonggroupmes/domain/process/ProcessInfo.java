@@ -11,15 +11,16 @@ import javax.persistence.Table;
 /**
  * 工艺信息实体类
  * 
- * <p>记录工艺的相关属性信息 
+ * <p>记录生产工艺的相关属性信息 
  * 
  * <p>属性信息描述：
  * 
  * <p>process_id 工艺信息主键
  *	
  * <p>process_name 工艺名称
- *	
+ * 
  * <p>process_code 工艺编码
+ * 
  * 
  * @author fuweijie
  * 
@@ -64,7 +65,4 @@ public class ProcessInfo implements Serializable {
 	public void setProcess_code(String process_code) {
 		this.process_code = process_code;
 	}
-	
-	
-	
 }

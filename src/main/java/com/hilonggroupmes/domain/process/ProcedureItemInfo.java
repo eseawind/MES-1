@@ -23,8 +23,6 @@ import javax.persistence.Table;
  * 
  * <p>procedureitem_valuetype 工序明细记录值类型（整形，浮点型，字符型）
  * 
- * <p>procedureitem_valuescope 工序明细记录范围（1.5-2,sa1.5-sa2.0-sa2.5）
- * 
  * <p>procedureitem_procedure 工艺设备
  * 
  * @author fuweijie
@@ -48,8 +46,6 @@ public class ProcedureItemInfo implements Serializable {
 	private String procedureitem_code;
 	
 	private String procedureitem_type;
-	
-	private String procedureitem_valuescope;
 	
 	private Integer procedureitem_procedure;
 
@@ -83,14 +79,6 @@ public class ProcedureItemInfo implements Serializable {
 
 	public void setProcedureitem_type(String procedureitem_type) {
 		this.procedureitem_type = procedureitem_type;
-	}
-
-	public String getProcedureitem_valuescope() {
-		return procedureitem_valuescope;
-	}
-
-	public void setProcedureitem_valuescope(String procedureitem_valuescope) {
-		this.procedureitem_valuescope = procedureitem_valuescope;
 	}
 
 	public Integer getProcedureitem_procedure() {

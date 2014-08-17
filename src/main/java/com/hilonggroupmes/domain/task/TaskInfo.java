@@ -26,6 +26,8 @@ import javax.persistence.Table;
  * 
  * <p>task_weldtype 焊接类型
  * 
+ * <p>task_process 任务工序
+ * 
  * <p>task_order 关联订单
  * 
  * <p>task_state 任务状态
@@ -61,6 +63,8 @@ public class TaskInfo implements Serializable {
 	private Integer task_state;
 	
 	private String task_weldtype;
+	
+	private Integer task_process;
 	
 	private Date task_bigintime;
 	
@@ -138,4 +142,11 @@ public class TaskInfo implements Serializable {
 		this.task_endtime = task_endtime;
 	}
 
+	public Integer getTask_process() {
+		return task_process;
+	}
+
+	public void setTask_process(Integer task_process) {
+		this.task_process = task_process;
+	}	
 }
