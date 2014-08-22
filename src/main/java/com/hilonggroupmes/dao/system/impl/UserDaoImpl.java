@@ -23,4 +23,10 @@ public class UserDaoImpl extends BaseDaoImpl<UserInfo> implements UserDao {
 		return super.get(h_getUserbyPassword, p_getUserByPassword);
 	}
 
+	@Override
+	public void deleteUserById() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -8,5 +8,7 @@ public interface UserDao extends BaseDao<UserInfo> {
 	public Long saveUser(UserInfo user);
 	
 	public UserInfo getUserByPassword(String user_accont,String user_password);
+	
+	public void deleteUserById();
 
 }
