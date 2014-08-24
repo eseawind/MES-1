@@ -9,10 +9,12 @@
     <link rel="stylesheet" type="text/css" href="../js/lib/themes/icon.css">
     <script type="text/javascript" src="../js/lib/jquery.min.js"></script>
     <script type="text/javascript" src="../js/lib/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/system/user.js"></script>
+    <script type="text/javascript" src="../js/system/system.js"></script>
 </head>
 <body class="easyui-layout">
         <div data-options="region:'north'" style="height:100px"></div>
-        <div data-options="region:'west',split:true" title="功能列表" style="width:100px;">
+        <div data-options="region:'west',split:true" title="功能列表" style="width:200px;">
             <div class="easyui-accordion" data-options="fit:true,border:false">
                 <div title="基础数据管理" style="padding:10px;">
                     content1
@@ -29,18 +31,18 @@
                 <div title="统计报表" style="padding:10px;">
                     content2
                 </div>
-                <div title="系统管理" style="padding:10px">
+                <div title="系统管理" style="padding:5px">
                         <ul id="fcnode" class="easyui-tree">
-                            <li>
+                            <li id="fc_user">
                                <span>用户管理</span>
                             </li>
-                             <li>
+                             <li id="fc_role">
                                <span>角色管理</span>
                             </li>
-                             <li>
+                             <li id="fc_right">
                                <span>权限管理</span>
                             </li>
-                             <li>
+                             <li id="fc_log">
                                <span>日志管理</span>
                             </li>
                         </ul>                           
@@ -49,42 +51,8 @@
         </div>
         <div data-options="region:'center'">
             <div id="mainwin" class="easyui-tabs" data-options="fit:true,border:false,plain:true">
-                <div title="概览" data-options="href:'_content.html'" style="padding:10px"></div>
-                <div title="DataGrid" style="padding:5px">
-                    <table class="easyui-datagrid"
-                            data-options="url:'datagrid_data1.json',method:'get',singleSelect:true,fit:true,fitColumns:true">
-                        <thead>
-                            <tr>
-                                <th data-options="field:'itemid'" width="80">Item ID</th>
-                                <th data-options="field:'productid'" width="100">Product ID</th>
-                                <th data-options="field:'listprice',align:'right'" width="80">List Price</th>
-                                <th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>
-                                <th data-options="field:'attr1'" width="150">Attribute</th>
-                                <th data-options="field:'status',align:'center'" width="50">Status</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
+                <div title="概览" style="padding:10px"></div>
             </div>
         </div>
-        <script type="text/javascript">
-        $('#fcnode').tree({
-        	onClick: function(node){
-        		if($('#mainwin').tabs("getTab",node.text)!=null)
-        		{
-        			$('#mainwin').tabs("select",node.text);
-        		}
-        		else{
-	        		$('#mainwin').tabs('add',{
-	        			 title: node.text,
-	        			 content: '<div style="padding:10px">'+ node.text + '</div>',
-	        			 closable: true
-	        		});
-        		}
-        	}
-        });
-
-
-        </script>
 </body>
 </html>
