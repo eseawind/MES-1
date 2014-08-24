@@ -3,21 +3,23 @@
  */
 
 //根据不同的功能节点标识初始化不同的功能界面
-function initfunc(dynamicTable,datagrid)
+function initfuncUI(tabPanel,funcNodeId)
 {
-	if(datagrid == 'dg_fc_user')
-		inituser(dynamicTable);
-	if(datagrid == 'dg_fc_role')
-		initrole(dynamicTable);
-	if(datagrid == 'dg_fc_log')
-		initlog(dynamicTable);
+	if(funcNodeId == 'fc_user')
+		inituser(tabPanel,funcNodeId);
+	if(funcNodeId == 'fc_role')
+		initrole(tabPanel,funcNodeId);
+	if(funcNodeId == 'fc_log')
+		initlog(tabPanel,funcNodeId);
 		
 }
 
 //初始化用户管理界面
-function inituser(dynamicTable)
+function inituser(TabPanel,FuncNodeId)
 {
-	dynamicTable.datagrid({
+	var userlist = $('<table id="dg_"'+ FuncNodeId +'"></table>');
+	TabPanel.html(userlist);
+	userlist.datagrid({
 	     //url:'datagrid_data.json',
 		 pagination:true,
 		 columns:[[
@@ -43,9 +45,11 @@ function inituser(dynamicTable)
 }
 
 //初始化角色管理界面
-function initrole(dynamicTable)
+function initrole(TabPanel,FuncNodeId)
 {
-	dynamicTable.datagrid({
+	var rolelist = $('<table id="dg_"'+ FuncNodeId +'"></table>');
+	TabPanel.html(rolelist);
+	rolelist.datagrid({
 	     //url:'datagrid_data.json',
 		 pagination:true,
 		 columns:[[
@@ -70,9 +74,11 @@ function initrole(dynamicTable)
 	 });
 }
 //初始化日志管理界面
-function initlog(dynamicTable)
+function initlog(TabPanel,FuncNodeId)
 {
-	dynamicTable.datagrid({
+	var loglist = $('<table id="dg_"'+ FuncNodeId +'"></table>');
+	TabPanel.html(loglist);
+	loglist.datagrid({
 	     //url:'datagrid_data.json',
 		 pagination:true,
 		 columns:[[

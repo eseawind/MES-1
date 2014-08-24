@@ -16,13 +16,9 @@ $(document).ready(function(){
         			 title: node.text,        			 
         			 closable: true
         		});
-        		//将功能界面绑定当前显示的tab
-        		var funcdgId = 'dg_' + node.id;
-        		var funcdlId = 'dl_' + node.id;
+        		//根据当前所选中的tabpanel初始化对应的界面
         		var currentTabPanel = $("#mainwin").tabs('getSelected');
-        	    var dynamicTable = $('<table id="'+ funcdgId +'"></table>');
-        	    currentTabPanel.html(dynamicTable);
-        	    initfunc(dynamicTable,funcdgId);
+        		initfuncUI(currentTabPanel,node.id);
     		}
     	}
     });
