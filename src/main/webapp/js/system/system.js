@@ -17,8 +17,36 @@ function initfuncUI(tabPanel,funcNodeId)
 //初始化用户管理界面
 function inituser(TabPanel,FuncNodeId)
 {
-	var userlist = $('<table id="dg_"'+ FuncNodeId +'"></table>');
+	var userlist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载用户列表界面
+	var userdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载用户详细信息对话框
+	TabPanel.html(userdialog);
 	TabPanel.html(userlist);
+	
+	userdialog.dialog({
+	    title: '用户信息',
+		width: 300,
+		height: 250,
+		closed: true,
+		cache: false,
+		content: '<form id="fm_fc_user" method="post">' +
+		         '<div style="text-align:center;padding:5px"><label>用户账号：</label><input name="user_accont" class="easyui-textbox" required="true"></div>' +		
+		         '<div style="text-align:center;padding:5px"><label>用户名称:</label><input name="user_name" class="easyui-textbox" required="true"></div>' +
+		         '<div style="text-align:center;padding:5px"><label>用户密码:</label><input name="user_password" class="easyui-textbox" valiType="password"></div>' + 
+		         '<div style="text-align:center;padding:5px"><label>用户角色:</label><input name="user_role" class="easyui-textbox" required="true"></div>' +
+		         '<div style="text-align:center;padding:5px"><label>用户状态:</label><input name="user_state" class="easyui-textbox" required="true"></div>' +
+		         '</form>',
+		modal: true,
+		buttons:[{
+			text:'保存',
+			width:90,
+			handler:function(){}
+		},{
+			text:'清空',
+			width:90,
+			handler:function(){}
+		}]
+	});
+
 	userlist.datagrid({
 	     //url:'datagrid_data.json',
 		 pagination:true,
@@ -31,11 +59,15 @@ function inituser(TabPanel,FuncNodeId)
 	     toolbar:[{
 			text:'添加',
 			iconCls:'icon-add',
-			handler:function(){alert('add')}
-			},{
+			handler:function(){
+				    userdialog.dialog('open').dialog('setTitle','新建用户');
+				    }
+			},'-',{
 			text:'修改',
 			iconCls:'icon-edit',
-			handler:function(){alert('cut')}
+			handler:function(){
+			    userdialog.dialog('open').dialog('setTitle','修改用户');
+		        }
 			},'-',{
 			text:'删除',
 			iconCls:'icon-remove',
