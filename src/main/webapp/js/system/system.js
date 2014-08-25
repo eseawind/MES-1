@@ -70,7 +70,7 @@ function inituser(TabPanel,FuncNodeId)
 				       }				    	   
 				       for(var i=0;i<rows.length;i++)
 				    	  ids.push(rows[i].user_id);
-				       $.post('deluser.do',{id:ids},function(result){
+				       $.post('delUser.do',{id:ids},function(result){
 				    	                               if (result.success)
 				    	                                    userlist.datagrid('reload'); // reload the user data
 				    	                               else {

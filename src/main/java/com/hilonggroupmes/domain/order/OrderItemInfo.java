@@ -2,10 +2,13 @@ package com.hilonggroupmes.domain.order;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -39,7 +42,9 @@ public class OrderItemInfo implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)	
 	private Integer orderitem_id;
 	
-	private Integer orderitem_order;
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@JoinColumn(name="orderitem_orderid", referencedColumnName="order_id")
+	private OrderInfo orderitem_order;
 	
 	private Integer orderitem_producttype;
 	
@@ -53,11 +58,11 @@ public class OrderItemInfo implements Serializable {
 		this.orderitem_id = orderitem_id;
 	}
 
-	public Integer getOrderitem_order() {
+	public OrderInfo getOrderitem_order() {
 		return orderitem_order;
 	}
 
-	public void setOrderitem_order(Integer orderitem_order) {
+	public void setOrderitem_order(OrderInfo orderitem_order) {
 		this.orderitem_order = orderitem_order;
 	}
 

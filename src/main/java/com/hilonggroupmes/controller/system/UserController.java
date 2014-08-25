@@ -50,4 +50,19 @@ public class UserController {
 		resultinfo.put("rows", userService.findUserByPage(page, rows, queryPare));
 		return resultinfo;		
 	}
+	
+	@RequestMapping("*/delUser.do")
+	@ResponseBody
+	public Map<String,Object> userDel(String id){				
+		resultinfo.clear();
+        if(userService.deleteUserByIds(id))
+        	resultinfo.put("success", true);
+        else
+        {
+        	resultinfo.put("success", false);
+        	resultinfo.put("errorMsg","用户删除失败！");
+        }
+		return resultinfo;		
+	}
+	
 }

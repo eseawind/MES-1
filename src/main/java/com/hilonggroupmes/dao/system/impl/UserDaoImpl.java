@@ -79,6 +79,11 @@ public class UserDaoImpl extends BaseDaoImpl<UserInfo> implements UserDao {
 		}
 		return super.count(h_getUserByPage, param);
 	}
+
+	@Override
+	public void deleteUserByIds(String ids) {
+		super.executeHql("delete from UserInfo user where user.user_id in(" + ids +")");
+	}
 	
 	
 

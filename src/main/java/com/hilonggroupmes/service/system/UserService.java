@@ -20,5 +20,7 @@ public interface UserService {
 	public UserInfo findUserByNameAndPassword(String username, String password);
 	
 	public Long getUserNum(Map<String,Object> paremeters);
+	
+	public Boolean deleteUserByIds(String ids);
 
 }

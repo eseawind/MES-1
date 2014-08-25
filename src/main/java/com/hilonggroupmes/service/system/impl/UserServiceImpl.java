@@ -54,4 +54,11 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public Boolean deleteUserByIds(String ids) {
+		userDao.deleteUserByIds(ids);
+		return true;
+	}
+	
+
 }

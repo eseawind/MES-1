@@ -1,11 +1,16 @@
 package com.hilonggroupmes.domain.order;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,6 +31,8 @@ import javax.persistence.Table;
  * <p>order_consignee 交付单位
  * 
  * <p>order_deliverydate 交付时间
+ * 
+ * <p>order_items 订单详细内容
  * 
  * 
  * @author fuweijie
@@ -52,6 +59,9 @@ public class OrderInfo implements Serializable {
 	private String order_consignee;
 	
 	private String order_deliverydate;
+	
+	@OneToMany(mappedBy = "orderitem_order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<OrderItemInfo> order_items = new ArrayList<OrderItemInfo>();
 
 	public Integer getOrder_id() {
 		return order_id;
@@ -99,6 +109,14 @@ public class OrderInfo implements Serializable {
 
 	public void setOrder_deliverydate(String order_deliverydate) {
 		this.order_deliverydate = order_deliverydate;
+	}
+
+	public List<OrderItemInfo> getOrder_items() {
+		return order_items;
+	}
+
+	public void setOrder_items(List<OrderItemInfo> order_items) {
+		this.order_items = order_items;
 	}
 
 }

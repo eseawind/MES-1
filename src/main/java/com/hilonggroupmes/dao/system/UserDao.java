@@ -17,4 +17,6 @@ public interface UserDao extends BaseDao<UserInfo> {
 	public List<UserInfo> getUsersByPage(Integer page,Integer rows,Map<String,Object> paremeters);
 
 	public Long getUsersNum(Map<String,Object> paremeters);
+	
+	public void deleteUserByIds(String ids);
 }
