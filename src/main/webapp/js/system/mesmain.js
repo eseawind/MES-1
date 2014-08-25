@@ -22,7 +22,16 @@ $(document).ready(function(){
     		}
     	}
     });
-    
-
-
 });
+
+//根据不同的功能节点标识初始化不同的功能界面
+function initfuncUI(tabPanel,funcNodeId)
+{
+	if(funcNodeId == 'fc_user')
+		inituser(tabPanel,funcNodeId);
+	if(funcNodeId == 'fc_role')
+		initrole(tabPanel,funcNodeId);
+	if(funcNodeId == 'fc_log')
+		initlog(tabPanel,funcNodeId);
+		
+}

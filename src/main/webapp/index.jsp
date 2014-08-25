@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
          <div id="loginpanel" class="easyui-panel" title="系统登录" style="width:400px;height:200px;padding:10px;"
                 data-options="collapsible:true">           
-           <form id="loginform" method="post" action="login.do">   
+           <form id="loginform" method="post" action="loginUser.do">   
              <div style="text-align:center;padding:5px">   
                    <label>用户名:</label>   
                    <input class="easyui-validatebox" type="text" name="user_accont" data-options="required:true" />   

@@ -1,6 +1,7 @@
 package com.hilonggroupmes.service.system.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -24,27 +25,33 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void updateUser(UserInfo user) {
-		//userDao.update(user);
+		userDao.update(user);
 	}
 
 	@Override
 	public UserInfo findUserById(Long id) {
-		return null;//userDao.get(UserInfo.class, id);
+		return userDao.get(UserInfo.class, id);
 	}
 
 	@Override
 	public void deleteUser(UserInfo user) {
-		//userDao.delete(user);
+		userDao.delete(user);
 	}
 
 	@Override
-	public List<UserInfo> findAllList() {
-		return null;//userDao.find(" from UserInfo u");
+	public List<UserInfo> findUserByPage(Integer page,Integer rows,Map<String,Object> paremeters) {
+		return userDao.getUsersByPage(page, rows, paremeters);
 	}
 
 	@Override
 	public UserInfo findUserByNameAndPassword(String user_accont, String user_password) {
 		return userDao.getUserByPassword(user_accont, user_password);
+	}
+	
+	@Override
+	public Long getUserNum(Map<String,Object> paremeters){
+		return userDao.getUsersNum(paremeters);
+		
 	}
 
 }

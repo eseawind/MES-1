@@ -1,5 +1,9 @@
 package com.hilonggroupmes.dao.system.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import com.hilonggroupmes.dao.base.impl.BaseDaoImpl;
@@ -28,5 +32,54 @@ public class UserDaoImpl extends BaseDaoImpl<UserInfo> implements UserDao {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<UserInfo> getUsersByPage(Integer page, Integer rows,
+			Map<String,Object> paremeters) {
+        
+		String h_getUserByPage = "from UserInfo user";
+		List<Object> param = new ArrayList<Object>();
+		if(!paremeters.isEmpty())
+		{
+			h_getUserByPage += " where ";
+			int pareNum = paremeters.size();
+			int i=1;
+			for(String key:paremeters.keySet())
+			{
+				if(i!=pareNum)
+				   h_getUserByPage += (key +"=? and ");
+				else
+				   h_getUserByPage += key + "=?";
+				param.add(paremeters.get(key));
+				i++;
+			}			
+		}
+		return super.find(h_getUserByPage, param, page, rows);
+	}
+	
+	@Override
+	public Long getUsersNum(Map<String,Object> paremeters) {
+        
+		String h_getUserByPage = "select count(*) from UserInfo user";
+		List<Object> param = new ArrayList<Object>();
+		if(!paremeters.isEmpty())
+		{
+			h_getUserByPage += " where ";
+			int pareNum = paremeters.size();
+			int i=1;
+			for(String key:paremeters.keySet())
+			{
+				if(i!=pareNum)
+				   h_getUserByPage += (key +"=? and ");
+				else
+				   h_getUserByPage += key + "=?";
+				param.add(paremeters.get(key));
+				i++;
+			}			
+		}
+		return super.count(h_getUserByPage, param);
+	}
+	
+	
 
 }

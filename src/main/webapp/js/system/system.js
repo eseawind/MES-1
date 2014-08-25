@@ -2,18 +2,6 @@
  * 
  */
 
-//根据不同的功能节点标识初始化不同的功能界面
-function initfuncUI(tabPanel,funcNodeId)
-{
-	if(funcNodeId == 'fc_user')
-		inituser(tabPanel,funcNodeId);
-	if(funcNodeId == 'fc_role')
-		initrole(tabPanel,funcNodeId);
-	if(funcNodeId == 'fc_log')
-		initlog(tabPanel,funcNodeId);
-		
-}
-
 //初始化用户管理界面
 function inituser(TabPanel,FuncNodeId)
 {
@@ -30,10 +18,10 @@ function inituser(TabPanel,FuncNodeId)
 		cache: false,
 		content: '<form id="fm_fc_user" method="post">' +
 		         '<div style="text-align:center;padding:5px"><label>用户账号：</label><input name="user_accont" class="easyui-textbox" required="true"></div>' +		
-		         '<div style="text-align:center;padding:5px"><label>用户名称:</label><input name="user_name" class="easyui-textbox" required="true"></div>' +
-		         '<div style="text-align:center;padding:5px"><label>用户密码:</label><input name="user_password" class="easyui-textbox" valiType="password"></div>' + 
-		         '<div style="text-align:center;padding:5px"><label>用户角色:</label><input name="user_role" class="easyui-textbox" required="true"></div>' +
-		         '<div style="text-align:center;padding:5px"><label>用户状态:</label><input name="user_state" class="easyui-textbox" required="true"></div>' +
+		         '<div style="text-align:center;padding:5px"><label>用户名称：</label><input name="user_name" class="easyui-textbox" required="true"></div>' +
+		         '<div style="text-align:center;padding:5px"><label>用户密码：</label><input name="user_password" class="easyui-textbox" valiType="password"></div>' + 
+		         '<div style="text-align:center;padding:5px"><label>用户角色：</label><input name="user_role" class="easyui-textbox" required="true"></div>' +
+		         '<div style="text-align:center;padding:5px"><label>用户状态：</label><input name="user_state" class="easyui-textbox" required="true"></div>' +
 		         '</form>',
 		modal: true,
 		buttons:[{
@@ -48,7 +36,8 @@ function inituser(TabPanel,FuncNodeId)
 	});
 
 	userlist.datagrid({
-	     //url:'datagrid_data.json',
+	     url:'listUser.do',
+		 loadMsg:'正在加载用户信息，请稍后...',
 		 pagination:true,
 		 columns:[[
               {field:'user_id',checkbox:true}, 
@@ -71,9 +60,34 @@ function inituser(TabPanel,FuncNodeId)
 			},'-',{
 			text:'删除',
 			iconCls:'icon-remove',
-			handler:function(){alert('save')}
-			}]
+			handler:function(){				       
+				       var rows = userlist.datagrid('getChecked');
+				       var ids = [];
+				       if(rows.length==0)
+				       {
+				    	  $.messager.alert('警告','请先选择要删除的记录！','警告');
+				    	  return;
+				       }				    	   
+				       for(var i=0;i<rows.length;i++)
+				    	  ids.push(rows[i].user_id);
+				       $.post('deluser.do',{id:ids},function(result){
+				    	                               if (result.success)
+				    	                                    userlist.datagrid('reload'); // reload the user data
+				    	                               else {
+				    	                                    $.messager.show({
+				    	                                          title: '错误',
+				    	                                          msg: result.errorMsg
+				    	                                    });
+				       };
+			 })}
+		}]
    });
+   var userpage = userlist.datagrid('getPager');
+   $(userpage).pagination({ 
+       beforePageText: '第',//页数文本框前显示的汉字 
+       afterPageText: '页    共 {pages} 页', 
+       displayMsg: '当前显示 {from} - {to} 条记录   共 {total} 条记录', 
+   });  
 }
 
 //初始化角色管理界面
@@ -133,4 +147,12 @@ function initlog(TabPanel,FuncNodeId)
 				handler:function(){alert('save')}
 				}]
 	 });
+}
+
+function formatUserState(val)
+{
+    if(!val)
+    	return '禁用';
+    else
+    	return '启用';
 }
