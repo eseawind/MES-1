@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                      else
                     	$.messager.alert('Info', rs.message, 'info');
                    }
-                });
+               });
          });
          </script>
 </body>

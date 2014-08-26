@@ -1,5 +1,5 @@
 /**
- * 
+ * 系统管理界面及操作
  */
 
 //初始化用户管理界面
@@ -17,6 +17,7 @@ function inituser(TabPanel,FuncNodeId)
 		closed: true,
 		cache: false,
 		content: '<form id="fm_fc_user" method="post">' +
+		         '<input name="user_id" type="hidden" value="">' +
 		         '<div style="text-align:center;padding:5px"><label>用户账号：</label><input name="user_accont" class="easyui-textbox" required="true"></div>' +		
 		         '<div style="text-align:center;padding:5px"><label>用户名称：</label><input name="user_name" class="easyui-textbox" required="true"></div>' +
 		         '<div style="text-align:center;padding:5px"><label>用户密码：</label><input name="user_password" class="easyui-textbox" valiType="password"></div>' + 
@@ -27,7 +28,19 @@ function inituser(TabPanel,FuncNodeId)
 		buttons:[{
 			text:'保存',
 			width:90,
-			handler:function(){}
+			handler:function(){				
+				$('#fm_fc_user').form('submit',{
+					url:'saveUser.do',
+					success:function(data){
+						var result = eval('(' + data + ')');
+						$.messager.show({title: '信息', msg: result.message});
+						$('#fm_fc_user').form('clear');
+						userdialog.dialog('close');
+                	    userlist.datagrid('reload');   
+				    }    
+				}
+				)
+			}
 		},{
 			text:'清空',
 			width:90,
@@ -54,9 +67,16 @@ function inituser(TabPanel,FuncNodeId)
 			},'-',{
 			text:'修改',
 			iconCls:'icon-edit',
-			handler:function(){
-			    userdialog.dialog('open').dialog('setTitle','修改用户');
-		        }
+			handler:function(){			    
+					    var rows = userlist.datagrid('getChecked');
+					    if(rows.length!=1)
+					    {
+					    	  $.messager.alert('警告','请选择条记录!','警告');
+					    	  return;
+					    }		
+					    $('#fm_fc_user').form('load','loadUser.do?id=' + rows[0].user_id);
+					    userdialog.dialog('open').dialog('setTitle','修改用户');
+				     }
 			},'-',{
 			text:'删除',
 			iconCls:'icon-remove',
@@ -70,17 +90,17 @@ function inituser(TabPanel,FuncNodeId)
 				       }				    	   
 				       for(var i=0;i<rows.length;i++)
 				    	  ids.push(rows[i].user_id);
-				       $.post('delUser.do',{id:ids},function(result){
-				    	                               if (result.success)
-				    	                                    userlist.datagrid('reload'); // reload the user data
-				    	                               else {
-				    	                                    $.messager.show({
-				    	                                          title: '错误',
-				    	                                          msg: result.errorMsg
-				    	                                    });
-				       };
-			 })}
-		}]
+				       $.post('delUser.do',{"delids":ids.toString()},function(data){
+				    	                                var result = eval('(' + data + ')');
+				    	                                if (result.success){
+				    	                            	    $.messager.show({title: '信息', msg: result.message});
+				    	                            	    userlist.datagrid('reload'); 
+				    	                            	}
+				    	                                else
+				    	                                    $.messager.show({title: '错误',msg: result.message});
+			           })
+			         }
+		     }]
    });
    var userpage = userlist.datagrid('getPager');
    $(userpage).pagination({ 

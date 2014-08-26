@@ -43,7 +43,7 @@ public class UserInfo implements Serializable  {
 	private static final long serialVersionUID = -4589666052411999372L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long user_id;  
 	
 	private String user_accont; 
