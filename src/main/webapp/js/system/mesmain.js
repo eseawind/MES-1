@@ -33,5 +33,7 @@ function initfuncUI(tabPanel,funcNodeId)
 		initrole(tabPanel,funcNodeId);
 	if(funcNodeId == 'fc_log')
 		initlog(tabPanel,funcNodeId);
+	if(funcNodeId == 'fc_equipment')
+		initequipment(tabPanel,funcNodeId);
 		
 }

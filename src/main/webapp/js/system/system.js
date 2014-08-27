@@ -20,7 +20,7 @@ function inituser(TabPanel,FuncNodeId)
 		         '<input name="user_id" type="hidden" value="">' +
 		         '<div style="text-align:center;padding:5px"><label>用户账号：</label><input name="user_accont" class="easyui-textbox" required="true"></div>' +		
 		         '<div style="text-align:center;padding:5px"><label>用户名称：</label><input name="user_name" class="easyui-textbox" required="true"></div>' +
-		         '<div style="text-align:center;padding:5px"><label>用户密码：</label><input name="user_password" class="easyui-textbox" valiType="password"></div>' + 
+		         '<div style="text-align:center;padding:5px"><label>用户密码：</label><input name="user_password" type="password" class="easyui-textbox"></div>' + 
 		         '<div style="text-align:center;padding:5px"><label>用户角色：</label><input name="user_role" class="easyui-textbox" required="true"></div>' +
 		         '<div style="text-align:center;padding:5px"><label>用户状态：</label><input name="user_state" class="easyui-textbox" required="true"></div>' +
 		         '</form>',

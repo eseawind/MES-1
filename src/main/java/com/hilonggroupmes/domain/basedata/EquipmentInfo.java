@@ -40,7 +40,7 @@ public class EquipmentInfo implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer equipment_id;
+	private Long equipment_id;
 	
 	private String equipment_name;
 	
@@ -48,15 +48,15 @@ public class EquipmentInfo implements Serializable {
 	
 	private String equipment_code;
 	
-	private String equipment_state;
+	private Boolean equipment_state;
 	
 	private String equipment_manufacturer;
 
-	public Integer getEquipment_id() {
+	public Long getEquipment_id() {
 		return equipment_id;
 	}
 
-	public void setEquipment_id(Integer equipment_id) {
+	public void setEquipment_id(Long equipment_id) {
 		this.equipment_id = equipment_id;
 	}
 
@@ -84,11 +84,11 @@ public class EquipmentInfo implements Serializable {
 		this.equipment_code = equipment_code;
 	}
 
-	public String getEquipment_state() {
+	public Boolean getEquipment_state() {
 		return equipment_state;
 	}
 
-	public void setEquipment_state(String equipment_state) {
+	public void setEquipment_state(Boolean equipment_state) {
 		this.equipment_state = equipment_state;
 	}
 

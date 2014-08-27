@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void saveUser(UserInfo user) {
-		userDao.saveUser(user);
+		userDao.save(user);
 	}
 
 	@Override

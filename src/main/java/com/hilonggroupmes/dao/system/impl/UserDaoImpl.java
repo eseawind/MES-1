@@ -14,11 +14,6 @@ import com.hilonggroupmes.domain.system.UserInfo;
 public class UserDaoImpl extends BaseDaoImpl<UserInfo> implements UserDao {
 
 	@Override
-	public Long saveUser(UserInfo user) {
-		return (Long)super.save(user);
-	}
-
-	@Override
 	public UserInfo getUserByPassword(String user_accont, String user_password) {
 		String []p_getUserByPassword = {user_accont,user_password};
 		String h_getUserbyPassword = "from UserInfo user "
@@ -28,16 +23,10 @@ public class UserDaoImpl extends BaseDaoImpl<UserInfo> implements UserDao {
 	}
 
 	@Override
-	public void deleteUserById() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public List<UserInfo> getUsersByPage(Integer page, Integer rows,
 			Map<String,Object> paremeters) {
         
-		String h_getUserByPage = "from UserInfo user";
+		String h_getUserByPage = "from UserInfo u";
 		List<Object> param = new ArrayList<Object>();
 		if(!paremeters.isEmpty())
 		{
@@ -47,9 +36,9 @@ public class UserDaoImpl extends BaseDaoImpl<UserInfo> implements UserDao {
 			for(String key:paremeters.keySet())
 			{
 				if(i!=pareNum)
-				   h_getUserByPage += (key +"=? and ");
+				   h_getUserByPage += ("u." + key +"=? and ");
 				else
-				   h_getUserByPage += key + "=?";
+				   h_getUserByPage += ("u." + key + "=?");
 				param.add(paremeters.get(key));
 				i++;
 			}			
@@ -60,7 +49,7 @@ public class UserDaoImpl extends BaseDaoImpl<UserInfo> implements UserDao {
 	@Override
 	public Long getUsersNum(Map<String,Object> paremeters) {
         
-		String h_getUserByPage = "select count(*) from UserInfo user";
+		String h_getUserByPage = "select count(*) from UserInfo u";
 		List<Object> param = new ArrayList<Object>();
 		if(!paremeters.isEmpty())
 		{
@@ -70,9 +59,9 @@ public class UserDaoImpl extends BaseDaoImpl<UserInfo> implements UserDao {
 			for(String key:paremeters.keySet())
 			{
 				if(i!=pareNum)
-				   h_getUserByPage += (key +"=? and ");
+				   h_getUserByPage += ("u." + key +"=? and ");
 				else
-				   h_getUserByPage += key + "=?";
+				   h_getUserByPage += ("u." + key + "=?");
 				param.add(paremeters.get(key));
 				i++;
 			}			
