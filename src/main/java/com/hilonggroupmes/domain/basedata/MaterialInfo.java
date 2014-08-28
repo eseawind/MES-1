@@ -41,7 +41,7 @@ public class MaterialInfo implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer material_id;
+	private Long material_id;
 	
 	private String material_name;
 	
@@ -53,11 +53,11 @@ public class MaterialInfo implements Serializable {
 	
 	private Integer material_quantity;
 
-	public Integer getMaterial_id() {
+	public Long getMaterial_id() {
 		return material_id;
 	}
 
-	public void setMaterial_id(Integer material_id) {
+	public void setMaterial_id(Long material_id) {
 		this.material_id = material_id;
 	}
 

@@ -41,11 +41,11 @@ public class PipeTypeInfo implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer pipetype_id;
+	private Long pipetype_id;
 	
 	private String pipetype_name;
 	
-	private String pipetype_spc;
+	private String pipetype_spec;
 	
 	private String pipetype_steelgrade;
 	
@@ -53,11 +53,11 @@ public class PipeTypeInfo implements Serializable {
 	
 	private String pipetype_supplier;
 
-	public Integer getPipetype_id() {
+	public Long getPipetype_id() {
 		return pipetype_id;
 	}
 
-	public void setPipetype_id(Integer pipetype_id) {
+	public void setPipetype_id(Long pipetype_id) {
 		this.pipetype_id = pipetype_id;
 	}
 
@@ -69,12 +69,12 @@ public class PipeTypeInfo implements Serializable {
 		this.pipetype_name = pipetype_name;
 	}
 
-	public String getPipetype_spc() {
-		return pipetype_spc;
+	public String getPipetype_spec() {
+		return pipetype_spec;
 	}
 
-	public void setPipetype_spc(String pipetype_spc) {
-		this.pipetype_spc = pipetype_spc;
+	public void setPipetype_spec(String pipetype_spec) {
+		this.pipetype_spec = pipetype_spec;
 	}
 
 	public String getPipetype_steelgrade() {

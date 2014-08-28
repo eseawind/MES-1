@@ -7,7 +7,7 @@ import com.hilonggroupmes.domain.system.UserInfo;
 
 public interface UserService {
 	
-    public void saveUser(UserInfo user);
+    public Long saveUser(UserInfo user);
 	
 	public void updateUser(UserInfo user);
 	

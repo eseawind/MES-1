@@ -19,8 +19,8 @@ public class UserServiceImpl implements UserService {
 
 
 	@Override
-	public void saveUser(UserInfo user) {
-		userDao.save(user);
+	public Long saveUser(UserInfo user) {
+		return (Long)userDao.save(user);
 	}
 
 	@Override
@@ -56,7 +56,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Boolean deleteUserByIds(String ids) {
-		userDao.deleteUserByIds(ids);
+		try{
+			userDao.deleteUserByIds(ids);
+		}catch(Exception e){
+			System.out.println(e.toString());
+			return false;
+		}	
 		return true;
 	}
 	

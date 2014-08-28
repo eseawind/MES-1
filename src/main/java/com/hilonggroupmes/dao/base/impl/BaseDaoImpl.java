@@ -1,7 +1,9 @@
 package com.hilonggroupmes.dao.base.impl;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -110,7 +112,6 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		return q.setFirstResult((page - 1) * rows).setMaxResults(rows).list();
 	}
 
-
 	public T get(Class<T> c, Serializable id) {
 		return (T) this.getCurrentSession().get(c, id);
 	}
@@ -153,7 +154,7 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 
 
 	public Long count(String hql, List<Object> param) {
-		Query q = this.getCurrentSession().createQuery(hql);
+		Query q = this.getCurrentSession().createQuery("select count(*)" + hql);
 		if (param != null && param.size() > 0) {
 			for (int i = 0; i < param.size(); i++) {
 				q.setParameter(i, param.get(i));

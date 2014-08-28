@@ -35,5 +35,7 @@ function initfuncUI(tabPanel,funcNodeId)
 		initlog(tabPanel,funcNodeId);
 	if(funcNodeId == 'fc_equipment')
 		initequipment(tabPanel,funcNodeId);
+	if(funcNodeId == 'fc_material')
+		initmaterial(tabPanel,funcNodeId);
 		
 }

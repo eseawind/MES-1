@@ -1,6 +1,5 @@
 package com.hilonggroupmes.dao.system.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.hilonggroupmes.dao.base.impl.BaseDaoImpl;
 import com.hilonggroupmes.dao.system.UserDao;
 import com.hilonggroupmes.domain.system.UserInfo;
+import com.hilonggroupmes.utils.CommonUtils;
 
 @Repository("userDao")
 public class UserDaoImpl extends BaseDaoImpl<UserInfo> implements UserDao {
@@ -26,47 +26,19 @@ public class UserDaoImpl extends BaseDaoImpl<UserInfo> implements UserDao {
 	public List<UserInfo> getUsersByPage(Integer page, Integer rows,
 			Map<String,Object> paremeters) {
         
-		String h_getUserByPage = "from UserInfo u";
-		List<Object> param = new ArrayList<Object>();
-		if(!paremeters.isEmpty())
-		{
-			h_getUserByPage += " where ";
-			int pareNum = paremeters.size();
-			int i=1;
-			for(String key:paremeters.keySet())
-			{
-				if(i!=pareNum)
-				   h_getUserByPage += ("u." + key +"=? and ");
-				else
-				   h_getUserByPage += ("u." + key + "=?");
-				param.add(paremeters.get(key));
-				i++;
-			}			
-		}
-		return super.find(h_getUserByPage, param, page, rows);
+		Map<String,Object> queryInfo = CommonUtils.buildQuery("UserInfo",paremeters);
+        String hql_query = (String) queryInfo.get("hql_query");
+        List<Object> pare_query = (List<Object>) queryInfo.get("pare_query");
+		return super.find(hql_query, pare_query, page, rows);
 	}
 	
 	@Override
 	public Long getUsersNum(Map<String,Object> paremeters) {
         
-		String h_getUserByPage = "select count(*) from UserInfo u";
-		List<Object> param = new ArrayList<Object>();
-		if(!paremeters.isEmpty())
-		{
-			h_getUserByPage += " where ";
-			int pareNum = paremeters.size();
-			int i=1;
-			for(String key:paremeters.keySet())
-			{
-				if(i!=pareNum)
-				   h_getUserByPage += ("u." + key +"=? and ");
-				else
-				   h_getUserByPage += ("u." + key + "=?");
-				param.add(paremeters.get(key));
-				i++;
-			}			
-		}
-		return super.count(h_getUserByPage, param);
+		Map<String,Object> queryInfo = CommonUtils.buildQuery("UserInfo",paremeters);
+        String hql_query = (String) queryInfo.get("hql_query");
+        List<Object> pare_query = (List<Object>) queryInfo.get("pare_query");
+		return super.count(hql_query, pare_query);
 	}
 
 	@Override

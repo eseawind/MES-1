@@ -1,6 +1,5 @@
 package com.hilonggroupmes.dao.basedata.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.hilonggroupmes.dao.base.impl.BaseDaoImpl;
 import com.hilonggroupmes.dao.basedata.EquipmentDao;
 import com.hilonggroupmes.domain.basedata.EquipmentInfo;
+import com.hilonggroupmes.utils.CommonUtils;
 
 @Repository("equipmentDao")
 public class EquipmentDaoImpl extends BaseDaoImpl<EquipmentInfo> implements EquipmentDao {
@@ -23,52 +23,25 @@ public class EquipmentDaoImpl extends BaseDaoImpl<EquipmentInfo> implements Equi
 	@Override
 	public List<EquipmentInfo> getEquipmentByPage(Integer page, Integer rows,
 			Map<String, Object> paremeters) {
-		String h_getEquipmentByPage = "from EquipmentInfo e";
-		List<Object> param = new ArrayList<Object>();
-		if(!paremeters.isEmpty())
-		{
-			h_getEquipmentByPage += " where ";
-			int pareNum = paremeters.size();
-			int i=1;
-			for(String key:paremeters.keySet())
-			{
-				if(i!=pareNum)
-					h_getEquipmentByPage += ("e." + key +"=? and ");
-				else
-					h_getEquipmentByPage += ("e." +key + "=?");
-				param.add(paremeters.get(key));
-				i++;
-			}			
-		}
-		return super.find(h_getEquipmentByPage, param, page, rows);
+        Map<String,Object> queryInfo = CommonUtils.buildQuery("EquipmentInfo",paremeters);
+        String hql_query = (String) queryInfo.get("hql_query");
+        List<Object> pare_query = (List<Object>) queryInfo.get("pare_query");
+		return super.find(hql_query, pare_query, page, rows);
 	}
 
 	@Override
 	public Long getEquipmentNum(Map<String, Object> paremeters) {
 		
-		String h_getEquipmentByPage = "select count(*) from EquipmentInfo e";
-		List<Object> param = new ArrayList<Object>();
-		if(!paremeters.isEmpty())
-		{
-			h_getEquipmentByPage += " where ";
-			int pareNum = paremeters.size();
-			int i=1;
-			for(String key:paremeters.keySet())
-			{
-				if(i!=pareNum)
-					h_getEquipmentByPage += ("e." + key +"=? and ");
-				else
-					h_getEquipmentByPage += ("e." + key +"=?");
-				param.add(paremeters.get(key));
-				i++;
-			}
-		}
-		return super.count(h_getEquipmentByPage, param);
+        Map<String,Object> queryInfo = CommonUtils.buildQuery("EquipmentInfo", paremeters);
+        String hql_query = (String) queryInfo.get("hql_query");
+        List<Object> pare_query = (List<Object>) queryInfo.get("pare_query");
+		return super.count(hql_query, pare_query);
 	}
 
 	@Override
 	public void deleteEquipmentByIds(String ids) {
-		super.executeHql("delete from EquipmentInfo e where e.equipment_id in(" + ids +")");
+		super.executeHql("delete from EquipmentInfo e "
+				+ "where e.equipment_id in(" + ids +")");
 		
 	}
 
