@@ -19,13 +19,13 @@ import javax.persistence.Table;
  *	
  * <p>pipetype_name 类型名称
  *	
- * <p>pipetype_spc 执行标准
+ * <p>pipetype_spec 执行标准
  *	
  * <p>pipetype_steelgrade 钢级
  *	
  * <p>pipetype_type 钢管类型 ：1 基管   2 衬管
  * 
- * <p>pipetype_supplier
+ * <p>pipetype_supplier 供货厂商
  * 
  * @author fuweijie
  * 

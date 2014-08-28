@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../js/lib/themes/icon.css">
     <script type="text/javascript" src="../js/lib/jquery.min.js"></script>
     <script type="text/javascript" src="../js/lib/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/lib/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="../js/system/basedata.js"></script>
     <script type="text/javascript" src="../js/system/system.js"></script>
     <script type="text/javascript" src="../js/system/mesmain.js"></script>
@@ -60,7 +61,7 @@
      	                              id: 'fc_product',
      	                              text: '产品信息管理'
      	                           },{
-     	                              id: 'fc_pipe',
+     	                              id: 'fc_pipetype',
      	                              text: '钢管信息管理'
      	                           }]
 		                },{

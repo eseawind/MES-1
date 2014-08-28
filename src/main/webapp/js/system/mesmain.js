@@ -37,5 +37,7 @@ function initfuncUI(tabPanel,funcNodeId)
 		initequipment(tabPanel,funcNodeId);
 	if(funcNodeId == 'fc_material')
 		initmaterial(tabPanel,funcNodeId);
+	if(funcNodeId == 'fc_pipetype')
+		initpipetype(tabPanel,funcNodeId);
 		
 }
