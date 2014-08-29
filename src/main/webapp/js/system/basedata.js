@@ -313,4 +313,107 @@ function initpipetype(TabPanel,FuncNodeId)
 			         }
 		     }]
    });
+	
+
+	}
+//初始化产品管理界面
+function initproduct(TabPanel,FuncNodeId)
+{
+	var productlist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载用户列表界面
+	var productdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载用户详细信息对话框
+	TabPanel.html(productdialog);
+	TabPanel.html(productlist);
+	
+	productdialog.dialog({
+	    title: '产品信息',
+		width: 300,
+		height: 250,
+		closed: true,
+		cache: false,
+		content: '<form id="fm_fc_product" method="post">' +
+		         '<input name="product_id" type="hidden" value="">' +
+		         '<div style="text-align:center;padding:5px"><label>产品名称：</label><input name="product_name" class="easyui-textbox" required="true"></div>' +		
+		         '<div style="text-align:center;padding:5px"><label>产品编码：</label><input name="product_code" class="easyui-textbox" required="true"></div>' +
+		         '<div style="text-align:center;padding:5px"><label>执行标准：</label><input name="product_spec" type="password" class="easyui-textbox"></div>' + 
+		         '<div style="text-align:center;padding:5px"><label>产品钢级：</label><input name="product_steelgrade" class="easyui-textbox" required="true"></div>' +
+		         '</form>',
+		modal: true,
+		buttons:[{
+			text:'保存',
+			width:90,
+			handler:function(){				
+				$('#fm_fc_product').form('submit',{
+					url:'saveProduct.do',
+					success:function(data){
+						var result = eval('(' + data + ')');
+						$.messager.show({title: '信息', msg: result.message});
+						$('#fm_fc_product').form('clear');
+						productdialog.dialog('close');
+                	    productlist.datagrid('reload');   
+				    }    
+				}
+				)
+			}
+		},{
+			text:'清空',
+			width:90,
+			handler:function(){}
+		}]
+	});
+
+	productlist.datagrid({
+	     url:'listProduct.do',
+		 loadMsg:'正在加载产品类型信息，请稍后...',
+		 pagination:true,
+		 columns:[[
+              {field:'product_id',checkbox:true}, 
+		      {field:'product_name',title:'产品类型名称',width:100},
+		      {field:'product_code',title:'产品类型编码',width:100},
+		      {field:'product_spec',title:'执行标准',width:100},
+		      {field:'product_steelgrade',title:'产品钢级',width:100}
+		 ]],
+	     toolbar:[{
+			text:'添加',
+			iconCls:'icon-add',
+			handler:function(){
+				    productdialog.dialog('open').dialog('setTitle','新建产品类型');
+				    }
+			},'-',{
+			text:'修改',
+			iconCls:'icon-edit',
+			handler:function(){			    
+					    var rows = productlist.datagrid('getChecked');
+					    if(rows.length!=1)
+					    {
+					    	  $.messager.alert('警告','请选择记录!','警告');
+					    	  return;
+					    }		
+					    $('#fm_fc_product').form('load','loadProduct.do?id=' + rows[0].product_id);
+					    productdialog.dialog('open').dialog('setTitle','修改产品类型');
+				     }
+			},'-',{
+			text:'删除',
+			iconCls:'icon-remove',
+			handler:function(){				       
+				       var rows = productlist.datagrid('getChecked');
+				       var ids = [];
+				       if(rows.length==0)
+				       {
+				    	  $.messager.alert('警告','请先选择要删除的记录！','警告');
+				    	  return;
+				       }				    	   
+				       for(var i=0;i<rows.length;i++)
+				    	  ids.push(rows[i].product_id);
+				       $.post('delProduct.do',{"delids":ids.toString()},function(data){
+				    	                                var result = eval('(' + data + ')');
+				    	                                if (result.success){
+				    	                            	    $.messager.show({title: '信息', msg: result.message});
+				    	                            	    productlist.datagrid('reload'); 
+				    	                            	}
+				    	                                else
+				    	                                    $.messager.show({title: '错误',msg: result.message});
+			           })
+			         }
+		     }]
+   });
 }

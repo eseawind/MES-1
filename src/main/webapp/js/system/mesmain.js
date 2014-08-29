@@ -39,5 +39,7 @@ function initfuncUI(tabPanel,funcNodeId)
 		initmaterial(tabPanel,funcNodeId);
 	if(funcNodeId == 'fc_pipetype')
 		initpipetype(tabPanel,funcNodeId);
+	if(funcNodeId == 'fc_product')
+		initproduct(tabPanel,funcNodeId);
 		
 }

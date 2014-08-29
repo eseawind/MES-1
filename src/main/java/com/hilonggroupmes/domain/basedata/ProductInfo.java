@@ -23,6 +23,8 @@ import javax.persistence.Table;
  *	
  * <p>product_spec 执行标准
  * 
+ * <p>product_steelgrade 产品钢级
+ * 
  * @author fuweijie
  * 
  * @version 2014.8.3.1
@@ -36,19 +38,21 @@ public class ProductInfo implements Serializable  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer product_id;
+	private Long product_id;
 	
 	private String product_name;
 	
 	private String product_code;
 	
 	private String product_spec;
+	
+	private String product_steelgrade;
 
-	public Integer getProduct_id() {
+	public Long getProduct_id() {
 		return product_id;
 	}
 
-	public void setProduct_id(Integer product_id) {
+	public void setProduct_id(Long product_id) {
 		this.product_id = product_id;
 	}
 
@@ -71,9 +75,16 @@ public class ProductInfo implements Serializable  {
 	public String getProduct_spec() {
 		return product_spec;
 	}
-
-	public void setProduct_standard(String product_spec) {
+	
+	public void setProduct_spec(String product_spec) {
 		this.product_spec = product_spec;
-	}		
+	}
 
+	public String getProduct_steelgrade() {
+		return product_steelgrade;
+	}
+
+	public void setProduct_steelgrade(String product_steelgrade) {
+		this.product_steelgrade = product_steelgrade;
+	}	
 }
