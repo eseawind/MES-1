@@ -12,6 +12,7 @@
     <script type="text/javascript" src="../js/lib/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="../js/system/basedata.js"></script>
     <script type="text/javascript" src="../js/system/system.js"></script>
+    <script type="text/javascript" src="../js/system/process.js"></script>
     <script type="text/javascript" src="../js/system/mesmain.js"></script>
 </head>
 <body class="easyui-layout">

@@ -15,15 +15,15 @@ import javax.persistence.Table;
  * 
  * <p>属性信息描述：
  * 
- * <p>procedure_id 工艺信息主键
+ * <p>procedure_id 工序信息主键
  *	
- * <p>procedure_name 工艺名称
+ * <p>procedure_name 工序名称
  *	
- * <p>procedure_code 工艺编码
+ * <p>procedure_code 工序编码
  * 
- * <p>procedure_type 工艺类型（内部、外协）
+ * <p>procedure_type 工序类型（内部、外协）
  * 
- * <p>procedure_equipment 工艺设备
+ * <p>procedure_equipment 工序设备
  * 
  * @author fuweijie
  * 

@@ -41,5 +41,7 @@ function initfuncUI(tabPanel,funcNodeId)
 		initpipetype(tabPanel,funcNodeId);
 	if(funcNodeId == 'fc_product')
 		initproduct(tabPanel,funcNodeId);
+	if(funcNodeId == 'fc_procedure')
+		initprocedure(tabPanel,funcNodeId);
 		
 }
