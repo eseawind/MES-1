@@ -23,12 +23,11 @@ function initprocedure(TabPanel,FuncNodeId)
 		cache: false,
 		content: '<div class="easyui-panel" width="100%">'+
 			     '<form id="fm_fc_procedure" method="post">' +
-		         '<input name="procedure_id" type="hidden" value="">' +
-		         '<input id="procedureItem_list" name="procedure_itemlist" type="hidden" value="">' +
-		         '<div style="text-align:center;padding:5px"><label>工序名称：</label><input name="procedure_accont" class="easyui-textbox" required="true">' +		
-		         '<label>　工序编码：</label><input name="procedure_name" class="easyui-textbox" required="true"></div>' +
-		         '<div style="text-align:center;padding:5px"><label>工序类型：</label><input name="procedure_password" type="password" class="easyui-textbox">' + 
-		         '<label>　工序设备：</label><input name="procedure_role" class="easyui-textbox" required="true"></div>' +
+		         '<input id="procedure_identify" name="procedure_id" type="hidden" value="">' +
+		         '<div style="text-align:center;padding:5px"><label>工序名称：</label><input name="procedure_name" class="easyui-textbox" required="true">' +		
+		         '<label>　工序编码：</label><input name="procedure_code" class="easyui-textbox" required="true"></div>' +
+		         '<div style="text-align:center;padding:5px"><label>工序类型：</label><input name="procedure_type" class="easyui-textbox" required="true">' + 
+		         '<label>　工序设备：</label><input name="procedure_equipment" class="easyui-textbox" required="true"></div>' +
 		         '</form><div class="easyui-panel" width=100%>' + 
 		         '<div><table id="dg2_fc_procedure" width="100%"></table></div>',
 		modal: true,
@@ -48,7 +47,7 @@ function initprocedure(TabPanel,FuncNodeId)
 				$('#fm_fc_procedure').form('submit',{
 					url:'saveProcedure.do',
 					onSubmit:function(param){
-						$('#procedureItem_list').val(JSON.stringify(dg2.datagrid('getRows')));
+						param.procedure_itemlist = JSON.stringify(dg2.datagrid('getRows'));
 						},
 					success:function(data){
 						var result = eval('(' + data + ')');
@@ -160,14 +159,15 @@ function initprocedure(TabPanel,FuncNodeId)
 	});
 
 	procedurelist.datagrid({
-	     //url:'listProcedure.do',
-		 loadMsg:'正在加载用户信息，请稍后...',
+	     url:'listProcedure.do',
+		 loadMsg:'正在加载工序信息，请稍后...',
 		 pagination:true,
 		 columns:[[
               {field:'procedure_id',checkbox:true}, 
-		      {field:'procedure_accont',title:'用户账号',width:100},
-		      {field:'procedure_name',title:'用户名称',width:100},
-		      {field:'procedure_state',title:'用户状态',width:100,align:'center'}
+		      {field:'procedure_name',title:'工序名称',width:100},
+		      {field:'procedure_code',title:'工序编码',width:100},
+		      {field:'procedure_type',title:'工序类型',width:100},
+		      {field:'procedure_equipment',title:'工序设备',width:100},
 		 ]],
 	     toolbar:[{
 			text:'添加',
@@ -182,11 +182,12 @@ function initprocedure(TabPanel,FuncNodeId)
 					    var rows = procedurelist.datagrid('getChecked');
 					    if(rows.length!=1)
 					    {
-					    	  $.messager.alert('警告','请选择条记录!','警告');
+					    	  $.messager.alert('警告','请选择一条记录!','警告');
 					    	  return;
 					    }		
 					    $('#fm_fc_procedure').form('load','loadProcedure.do?id=' + rows[0].procedure_id);
-					    proceduredialog.dialog('open').dialog('setTitle','修改用户');
+					    dg2.datagrid({ url:'loadProcedureItem.do',queryParams:{id:$('#procedure_identify').val()},method:"post"});
+					    proceduredialog.dialog('open').dialog('setTitle','修改工序');
 				     }
 			},'-',{
 			text:'删除',

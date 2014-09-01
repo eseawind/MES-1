@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 工序信息实体类
  * 
@@ -44,7 +46,7 @@ public class ProcedureInfo implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer procedure_id;
+	private Long procedure_id;
 	
 	private String procedure_name;
 	
@@ -54,14 +56,15 @@ public class ProcedureInfo implements Serializable {
 	
 	private String procedure_equipment;
 	
-	@OneToMany(mappedBy = "procedureitem_procedure", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnore
+	@OneToMany(mappedBy = "procedureitem_procedure", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<ProcedureItemInfo> procedure_items = new ArrayList<ProcedureItemInfo>();
 
-	public Integer getProcedure_id() {
+	public Long getProcedure_id() {
 		return procedure_id;
 	}
 
-	public void setProcedure_id(Integer procedure_id) {
+	public void setProcedure_id(Long procedure_id) {
 		this.procedure_id = procedure_id;
 	}
 

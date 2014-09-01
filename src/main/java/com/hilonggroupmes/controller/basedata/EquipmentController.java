@@ -91,8 +91,4 @@ public class EquipmentController {
         resultinfo.put("equipment_state",equipment.getEquipment_state());
 		return resultinfo;		
 	}
-	
-	
-	
-
 }

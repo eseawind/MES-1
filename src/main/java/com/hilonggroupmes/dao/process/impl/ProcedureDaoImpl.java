@@ -20,7 +20,7 @@ public class ProcedureDaoImpl extends BaseDaoImpl<ProcedureInfo> implements
 	@Override
 	public void deleteProcedureById(Long procedure_id) {
 		super.executeHql("delete from ProcedureInfo p "
-				+ "where p.Procedure_id="+ procedure_id);
+				+ "where p.procedure_id="+ procedure_id);
 		
 	}
 
@@ -45,7 +45,7 @@ public class ProcedureDaoImpl extends BaseDaoImpl<ProcedureInfo> implements
 	@Override
 	public void deleteProcedureByIds(String ids) {
 		super.executeHql("delete from ProcedureInfo p "
-				+ "where p.Procedure_id in(" + ids +")");
+				+ "where p.procedure_id in(" + ids +")");
 		
 	}
 
