@@ -2,10 +2,13 @@ package com.hilonggroupmes.domain.process;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -45,9 +48,11 @@ public class ProcedureItemInfo implements Serializable {
 	
 	private String procedureitem_code;
 	
-	private String procedureitem_type;
+	private String procedureitem_valuetype;
 	
-	private Integer procedureitem_procedure;
+	@ManyToOne(cascade = CascadeType.ALL, optional = false)
+	@JoinColumn(name="procedureitem_procedureid", referencedColumnName="procedure_id",nullable=false)
+	private ProcedureInfo procedureitem_procedure;
 
 	public Integer getProcedureitem_id() {
 		return procedureitem_id;
@@ -73,19 +78,19 @@ public class ProcedureItemInfo implements Serializable {
 		this.procedureitem_code = procedureitem_code;
 	}
 
-	public String getProcedureitem_type() {
-		return procedureitem_type;
+	public String getProcedureitem_valuetype() {
+		return procedureitem_valuetype;
 	}
 
-	public void setProcedureitem_type(String procedureitem_type) {
-		this.procedureitem_type = procedureitem_type;
+	public void setProcedureitem_valuetype(String procedureitem_valuetype) {
+		this.procedureitem_valuetype = procedureitem_valuetype;
 	}
 
-	public Integer getProcedureitem_procedure() {
+	public ProcedureInfo getProcedureitem_procedure() {
 		return procedureitem_procedure;
 	}
 
-	public void setProcedureitem_procedure(Integer procedureitem_procedure) {
+	public void setProcedureitem_procedure(ProcedureInfo procedureitem_procedure) {
 		this.procedureitem_procedure = procedureitem_procedure;
 	}
 	

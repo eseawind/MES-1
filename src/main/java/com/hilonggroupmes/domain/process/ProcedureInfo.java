@@ -1,11 +1,16 @@
 package com.hilonggroupmes.domain.process;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -45,9 +50,12 @@ public class ProcedureInfo implements Serializable {
 	
 	private String procedure_code;
 	
-	private String procedure_type;
+	private Integer procedure_type;
 	
 	private String procedure_equipment;
+	
+	@OneToMany(mappedBy = "procedureitem_procedure", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<ProcedureItemInfo> procedure_items = new ArrayList<ProcedureItemInfo>();
 
 	public Integer getProcedure_id() {
 		return procedure_id;
@@ -73,11 +81,11 @@ public class ProcedureInfo implements Serializable {
 		this.procedure_code = procedure_code;
 	}
 
-	public String getProcedure_type() {
+	public Integer getProcedure_type() {
 		return procedure_type;
 	}
 
-	public void setProcedure_type(String procedure_type) {
+	public void setProcedure_type(Integer procedure_type) {
 		this.procedure_type = procedure_type;
 	}
 
@@ -87,6 +95,14 @@ public class ProcedureInfo implements Serializable {
 
 	public void setProcedure_equipment(String procedure_equipment) {
 		this.procedure_equipment = procedure_equipment;
+	}
+
+	public List<ProcedureItemInfo> getProcedure_items() {
+		return procedure_items;
+	}
+
+	public void setProcedure_items(List<ProcedureItemInfo> procedure_items) {
+		this.procedure_items = procedure_items;
 	}
 
 }

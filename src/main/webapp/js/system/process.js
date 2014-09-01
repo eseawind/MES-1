@@ -7,6 +7,8 @@ function initprocedure(TabPanel,FuncNodeId)
 {
 	var procedurelist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载用户列表界面
 	var proceduredialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载用户详细信息对话框
+	var editIndex = undefined; 
+	var ifrepeat = false;
 	TabPanel.html(proceduredialog);
 	TabPanel.html(procedurelist);
 	var itemlist = new Array();
@@ -22,7 +24,7 @@ function initprocedure(TabPanel,FuncNodeId)
 		content: '<div class="easyui-panel" width="100%">'+
 			     '<form id="fm_fc_procedure" method="post">' +
 		         '<input name="procedure_id" type="hidden" value="">' +
-		         '<input name="procedure_itemlist" type="hidden" value="">' +
+		         '<input id="procedureItem_list" name="procedure_itemlist" type="hidden" value="">' +
 		         '<div style="text-align:center;padding:5px"><label>工序名称：</label><input name="procedure_accont" class="easyui-textbox" required="true">' +		
 		         '<label>　工序编码：</label><input name="procedure_name" class="easyui-textbox" required="true"></div>' +
 		         '<div style="text-align:center;padding:5px"><label>工序类型：</label><input name="procedure_password" type="password" class="easyui-textbox">' + 
@@ -36,13 +38,18 @@ function initprocedure(TabPanel,FuncNodeId)
 			handler:function(){	
 				if (!dg2.datagrid('validateRow', editIndex))
 					 return;
-				 dg2.datagrid('endEdit',editIndex);	 
-				 editIndex = undefined;
+				dg2.datagrid('endEdit',editIndex);	
+	    		if(ifrepeat)
+	    		{
+	    			 dg2.datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+	    			 return;
+	    		}	   
+				editIndex = undefined;
 				$('#fm_fc_procedure').form('submit',{
 					url:'saveProcedure.do',
 					onSubmit:function(param){
-						param.procedure_itemlist = JSON.stringify(dg2.datagrid('getRows'));
-						alert(param.procedure_itemlist);},
+						$('#procedureItem_list').val(JSON.stringify(dg2.datagrid('getRows')));
+						},
 					success:function(data){
 						var result = eval('(' + data + ')');
 						$.messager.show({title: '信息', msg: result.message});
@@ -50,8 +57,7 @@ function initprocedure(TabPanel,FuncNodeId)
 						proceduredialog.dialog('close');
                 	    procedurelist.datagrid('reload');   
 				    }    
-				}
-				)
+				})
 			}
 		},{
 			text:'清空',
@@ -61,7 +67,7 @@ function initprocedure(TabPanel,FuncNodeId)
 			}
 		}]
 	});
-	var editIndex = undefined; 
+	
 	var dg2 = $('#dg2_fc_procedure');
 	dg2.datagrid({
 		    title:"工序信息明细",
@@ -74,7 +80,12 @@ function initprocedure(TabPanel,FuncNodeId)
 				     {
 						 if (!dg2.datagrid('validateRow', editIndex))
 							 return;
-						 dg2.datagrid('endEdit',editIndex);	 
+						 dg2.datagrid('endEdit',editIndex);
+						 if(ifrepeat)
+					     {
+							    dg2.datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex); 
+							    return;
+						 }
 						 editIndex = undefined;
 					 }
 					 if(editIndex ==undefined){
@@ -85,16 +96,16 @@ function initprocedure(TabPanel,FuncNodeId)
 				}}
 		    	],
 			columns:[[
-		              {field:'procedure_id',checkbox:true}, 
-				      {field:'procedure_name',title:'工序明细名称',width:100,editor:{type:'validatebox',options:{required:true}}},
-				      {field:'procedure_code',title:'工序明细编码',width:100,editor:{type:'validatebox',options:{required:true}}},
-				      {field:'procedure_valuetype',title:'工序明细值类型',width:100,
+		              {field:'procedureitem_id',checkbox:true}, 
+				      {field:'procedureitem_name',title:'工序明细名称',width:100,editor:{type:'validatebox',options:{required:true}}},
+				      {field:'procedureitem_code',title:'工序明细编码',width:100,editor:{type:'validatebox',options:{required:true}}},
+				      {field:'procedureitem_valuetype',title:'工序明细值类型',width:100,
 				    	  formatter:function(value,row){
-				    		 if(row.procedure_valuetype==1)
+				    		 if(row.procedureitem_valuetype==1)
 				    			 return '字符型';
-				    		 if(row.procedure_valuetype==2)
+				    		 if(row.procedureitem_valuetype==2)
 				    			 return '整数型';
-				    		 if(row.procedure_valuetype==3)
+				    		 if(row.procedureitem_valuetype==3)
 				    			 return '实数型';
 				    	  },
 						  editor:{
@@ -120,6 +131,11 @@ function initprocedure(TabPanel,FuncNodeId)
 	    	   }	 
 	    	   else{
 	    		   dg2.datagrid('endEdit',editIndex);
+	    		   if(ifrepeat)
+	    		   {
+	    			   dg2.datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+	    			   return;
+	    		   }	    			   
 	    		   dg2.datagrid('selectRow', index).datagrid('beginEdit', index);
 	    		   editIndex = index;
 	    	   }	 
@@ -129,15 +145,17 @@ function initprocedure(TabPanel,FuncNodeId)
 	          var rows = dg2.datagrid('getRows');
 	          for(var i=0;i<rows.length;i++)
 	          {
-	        	  if(i==editIndex)
+	        	  if(i==rowIndex)
 	        		  continue;
-	        	  if(rowData.procedure_name==rows[i].procedure_name ||
-	        			  rowData.proceduce_code==rows[i].proceduce_code)
+	        	  if(rowData.procedureitem_name==rows[i].procedureitem_name||
+	        			  rowData.procedureitem_code==rows[i].procedureitem_code)
 	        	  {
 	        		  $.messager.alert('错误','工序明细编码和工序明细标识不能重复，请修改！','错误');
-	        	      dg2.datagrid('selectRow', index).datagrid('beginEdit',rowIndex);
-	        	  }
+	        	  	  ifrepeat = true;
+	        	  	  return;
+	        	  } 
 	          }
+	          ifrepeat = false;
 	       }
 	});
 
