@@ -321,8 +321,65 @@ function initproduct(TabPanel,FuncNodeId)
 {
 	var productlist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载用户列表界面
 	var productdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载用户详细信息对话框
+	var productdialog2 = $('<div id="dl2_"'+ FuncNodeId +'"></div>');   //加载用户详细信息对话框
 	TabPanel.html(productdialog);
 	TabPanel.html(productlist);
+	
+	proceduredialog2.dialog({
+	    title: '工艺信息设置',
+		width: 500,
+		top:100,
+		height: 500,
+		closed: true,
+		cache: false,
+		content: '<div class="easyui-panel" width="100%">'+
+			     '<form id="fm_fc_procedure" method="post">' +
+		         '<input id="procedure_identify" name="procedure_id" type="hidden" value="">' +
+		         '</form><div class="easyui-panel" width=100%>' + 
+		         '<div><table id="dg2_fc_product" width="100%"></table></div>',
+		modal: true,
+		buttons:[{
+			text:'保存',
+			width:90,
+			handler:function(){	
+				if (!dg2.datagrid('validateRow', editIndex))
+					 return;
+				dg2.datagrid('endEdit',editIndex);	
+	    		if(ifrepeat)
+	    		{
+	    			 dg2.datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+	    			 return;
+	    		}	   
+				editIndex = undefined;
+				$('#fm_fc_procedure').form('submit',{
+					url:'saveProcedure.do',
+					onSubmit:function(param){
+						param.procedure_itemlist = JSON.stringify(dg2.datagrid('getRows'));
+						},
+					success:function(data){
+						var result = eval('(' + data + ')');
+						$.messager.show({title: '信息', msg: result.message});
+						proceduredialog.dialog('close');
+						$('#fm_fc_procedure').form('clear');
+						dg2.datagrid('loadData',{total:0,rows:[]});					
+                	    procedurelist.datagrid('reload');   
+				    }    
+				})
+			}
+		    },{
+			text:'清空',
+			width:90,
+			handler:function(){
+				$("#fm_fc_procedure").form('clear');
+				dg2.datagrid('loadData',{total:0,rows:[]});
+			}
+		}],
+	onClose:function()
+	{
+		dg2.datagrid('loadData',{total:0,rows:[]});					
+		$('#fm_fc_procedure').form('clear'); 
+	}
+	});
 	
 	productdialog.dialog({
 	    title: '产品信息',

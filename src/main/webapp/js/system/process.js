@@ -5,15 +5,13 @@
 //初始化工序管理界面
 function initprocedure(TabPanel,FuncNodeId)
 {
-	var procedurelist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载用户列表界面
-	var proceduredialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载用户详细信息对话框
+	var procedurelist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载工序列表界面
+	var proceduredialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载工序详细信息对话框
 	var editIndex = undefined; 
 	var ifrepeat = false;
 	TabPanel.html(proceduredialog);
 	TabPanel.html(procedurelist);
-	var itemlist = new Array();
-	var dg2 = $('#dg2_fc_procedure');
-	
+	var itemlist = new Array();	
 	proceduredialog.dialog({
 	    title: '工序信息',
 		width: 500,
@@ -52,19 +50,26 @@ function initprocedure(TabPanel,FuncNodeId)
 					success:function(data){
 						var result = eval('(' + data + ')');
 						$.messager.show({title: '信息', msg: result.message});
-						$('#fm_fc_procedure').form('clear');
 						proceduredialog.dialog('close');
+						$('#fm_fc_procedure').form('clear');
+						dg2.datagrid('loadData',{total:0,rows:[]});					
                 	    procedurelist.datagrid('reload');   
 				    }    
 				})
 			}
-		},{
+		    },{
 			text:'清空',
 			width:90,
 			handler:function(){
 				$("#fm_fc_procedure").form('clear');
+				dg2.datagrid('loadData',{total:0,rows:[]});
 			}
-		}]
+		}],
+	onClose:function()
+	{
+		dg2.datagrid('loadData',{total:0,rows:[]});					
+		$('#fm_fc_procedure').form('clear'); 
+	}
 	});
 	
 	var dg2 = $('#dg2_fc_procedure');
@@ -186,7 +191,7 @@ function initprocedure(TabPanel,FuncNodeId)
 					    	  return;
 					    }		
 					    $('#fm_fc_procedure').form('load','loadProcedure.do?id=' + rows[0].procedure_id);
-					    dg2.datagrid({ url:'loadProcedureItem.do',queryParams:{id:$('#procedure_identify').val()},method:"post"});
+					    dg2.datagrid({ url:'loadProcedureItem.do',queryParams:{id:rows[0].procedure_id},method:"post"});
 					    proceduredialog.dialog('open').dialog('setTitle','修改工序');
 				     }
 			},'-',{
