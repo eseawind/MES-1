@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.hilonggroupmes.dao.process.ProcedureDao;
+import com.hilonggroupmes.dao.process.ProcedureItemDao;
 import com.hilonggroupmes.domain.process.ProcedureInfo;
 import com.hilonggroupmes.domain.process.ProcedureItemInfo;
 import com.hilonggroupmes.service.process.ProcedureService;
@@ -17,6 +18,9 @@ public class ProcedureServiceImpl implements ProcedureService {
 	
 	@Resource
 	private ProcedureDao procedureDao;
+	
+	@Resource
+	private ProcedureItemDao procedureItemDao;
 
 	@Override
 	public Long getProcedureNum(Map<String, Object> queryPare) {
@@ -60,7 +64,15 @@ public class ProcedureServiceImpl implements ProcedureService {
 
 	@Override
 	public List<ProcedureItemInfo> getProcedureItemByProcedure(Long procedure_id) {
-		return procedureDao.getProcedureItemByProcedure(procedure_id);
+		ProcedureInfo p = procedureDao.get(ProcedureInfo.class, procedure_id);
+		List<ProcedureItemInfo> pi= p.getProcedure_items();
+		return pi;
+	}
+
+	@Override
+	public void saveProcedureItem(ProcedureItemInfo procedure_item) {
+		procedureItemDao.saveOrUpdate(procedure_item);
+		
 	}
 
 }

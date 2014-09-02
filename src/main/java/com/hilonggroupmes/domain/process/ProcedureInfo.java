@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import javax.persistence.CascadeType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -57,7 +58,7 @@ public class ProcedureInfo implements Serializable {
 	private String procedure_equipment;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "procedureitem_procedure", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "procedureitem_procedure",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	private List<ProcedureItemInfo> procedure_items = new ArrayList<ProcedureItemInfo>();
 
 	public Long getProcedure_id() {

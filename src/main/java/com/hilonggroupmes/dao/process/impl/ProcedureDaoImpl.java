@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.hilonggroupmes.dao.base.impl.BaseDaoImpl;
 import com.hilonggroupmes.dao.process.ProcedureDao;
 import com.hilonggroupmes.domain.process.ProcedureInfo;
-import com.hilonggroupmes.domain.process.ProcedureItemInfo;
 import com.hilonggroupmes.utils.CommonUtils;
 
 
@@ -52,12 +51,6 @@ public class ProcedureDaoImpl extends BaseDaoImpl<ProcedureInfo> implements
 	@Override
 	public ProcedureInfo getProcedureById(Long procedure_id) {
 		return super.get(ProcedureInfo.class, procedure_id);
-	}
-
-	@Override
-	public List<ProcedureItemInfo> getProcedureItemByProcedure(Long procedure_id) {
-		ProcedureInfo pi = super.get(ProcedureInfo.class, procedure_id);
-		return pi.getProcedure_items();
 	}
 
 }

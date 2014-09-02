@@ -9,7 +9,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,7 +49,7 @@ public class ProcedureController {
 			                           String procedure_name,String procedure_code,
 			                           Integer procedure_type,String procedure_equipment) throws JsonParseException, JsonMappingException, IOException{
 		resultinfo.clear();
-		
+		List<ProcedureItemInfo> pilist = null;
 		ProcedureInfo procedure = new ProcedureInfo();
 		procedure.setProcedure_name(procedure_name);
 		procedure.setProcedure_code(procedure_code);
@@ -62,18 +61,17 @@ public class ProcedureController {
 		{
 			ObjectMapper mapper = new ObjectMapper();
 			JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, ProcedureItemInfo.class); 
-			List<ProcedureItemInfo> pilist = (List<ProcedureItemInfo>)mapper.readValue(procedure_itemlist, jt);
+			pilist = (List<ProcedureItemInfo>)mapper.readValue(procedure_itemlist, jt);
 			for(int i=0;i<pilist.size();i++)
 			{
-				ProcedureItemInfo pe = (ProcedureItemInfo)pilist.get(i);
-                procedure.getProcedure_items().add(pe);
+				pilist.get(i).setProcedureitem_procedure(procedure);
 			}
+			procedure.setProcedure_items(pilist);
 		}
 		if(procedure_id!=null)
 			procedureService.updateProcedure(procedure);
 		else
 			procedureService.saveProcedure(procedure);
-				
         resultinfo.put("success", true);
         resultinfo.put("message","工序信息添加成功！");
 		return resultinfo;		
@@ -116,16 +114,17 @@ public class ProcedureController {
 	@ResponseBody
 	public Map<String,Object> procedureItemList(HttpServletRequest resquest){		
 		resultinfo.clear();
+		List<ProcedureItemInfo> pinlist = new ArrayList<ProcedureItemInfo>();
 		String procedure_id = resquest.getParameter("id");
 		if(procedure_id!=""&&procedure_id!=null)
 		{
-		    List<ProcedureItemInfo> pinlist = procedureService.getProcedureItemByProcedure(Long.parseLong(procedure_id));
+			pinlist = procedureService.getProcedureItemByProcedure(Long.parseLong(procedure_id));
 		    resultinfo.put("rows", pinlist);
 		    resultinfo.put("total", pinlist.size());
 		}else
 		{
 			resultinfo.put("total", 0);
-			resultinfo.put("rows", "");
+			resultinfo.put("rows", pinlist);
 		}
 		return resultinfo;		
 	}

@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -50,8 +51,8 @@ public class ProcedureItemInfo implements Serializable {
 	
 	private String procedureitem_valuetype;
 	
-	@ManyToOne(cascade = CascadeType.ALL, optional = false)
-	@JoinColumn(name="procedureitem_procedureid", referencedColumnName="procedure_id",nullable=false)
+	@ManyToOne(fetch = FetchType.EAGER)  
+	@JoinColumn(name="procedureitem_procedureid", referencedColumnName="procedure_id")
 	private ProcedureInfo procedureitem_procedure;
 
 	public Integer getProcedureitem_id() {
