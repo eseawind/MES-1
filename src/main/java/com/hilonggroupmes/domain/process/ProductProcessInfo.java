@@ -39,30 +39,30 @@ public class ProductProcessInfo implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer processitem_id;
+	private Integer productprocess_id;
 	
-	private String processitem_proceduce;
+	private String productprocess_proceduce;
 	
 	private Integer productprocess_sequence;
 	
-	private String processitem_failspro;
+	private String productprocess_failspro;
 	
-	private Integer processitem_forproduct;
+	private Integer productprocess_forproduct;
 
-	public Integer getProcessitem_id() {
-		return processitem_id;
+	public Integer getProductprocess_id() {
+		return productprocess_id;
 	}
 
-	public void setProcessitem_id(Integer processitem_id) {
-		this.processitem_id = processitem_id;
+	public void setProductprocess_id(Integer productprocess_id) {
+		this.productprocess_id = productprocess_id;
 	}
 
-	public String getProcessitem_proceduce() {
-		return processitem_proceduce;
+	public String getProductprocess_proceduce() {
+		return productprocess_proceduce;
 	}
 
-	public void setProcessitem_proceduce(String processitem_proceduce) {
-		this.processitem_proceduce = processitem_proceduce;
+	public void setProductprocess_proceduce(String productprocess_proceduce) {
+		this.productprocess_proceduce = productprocess_proceduce;
 	}
 
 	public Integer getProductprocess_sequence() {
@@ -73,20 +73,20 @@ public class ProductProcessInfo implements Serializable {
 		this.productprocess_sequence = productprocess_sequence;
 	}
 
-	public String getProcessitem_failspro() {
-		return processitem_failspro;
+	public String getProductprocess_failspro() {
+		return productprocess_failspro;
 	}
 
-	public void setProcessitem_failspro(String processitem_failspro) {
-		this.processitem_failspro = processitem_failspro;
+	public void setProductprocess_failspro(String productprocess_failspro) {
+		this.productprocess_failspro = productprocess_failspro;
 	}
 
-	public Integer getProcessitem_forproduct() {
-		return processitem_forproduct;
+	public Integer getProductprocess_forproduct() {
+		return productprocess_forproduct;
 	}
 
-	public void setProcessitem_forproduct(Integer processitem_forproduct) {
-		this.processitem_forproduct = processitem_forproduct;
+	public void setProductprocess_forproduct(Integer productprocess_forproduct) {
+		this.productprocess_forproduct = productprocess_forproduct;
 	}
 
 }

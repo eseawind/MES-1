@@ -319,13 +319,16 @@ function initpipetype(TabPanel,FuncNodeId)
 //初始化产品管理界面
 function initproduct(TabPanel,FuncNodeId)
 {
-	var productlist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载用户列表界面
-	var productdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载用户详细信息对话框
-	var productdialog2 = $('<div id="dl2_"'+ FuncNodeId +'"></div>');   //加载用户详细信息对话框
+	var productlist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载产品列表界面
+	var productdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载产品详细信息对话框
+	var processdialog = $('<div id="dl2_"'+ FuncNodeId +'"></div>');   //加载工艺详细信息对话框
+	var editIndex = undefined; 
+	var ifrepeat = false;
 	TabPanel.html(productdialog);
+	TabPanel.html(processdialog);
 	TabPanel.html(productlist);
 	
-	proceduredialog2.dialog({
+	processdialog.dialog({
 	    title: '工艺信息设置',
 		width: 500,
 		top:100,
@@ -333,10 +336,10 @@ function initproduct(TabPanel,FuncNodeId)
 		closed: true,
 		cache: false,
 		content: '<div class="easyui-panel" width="100%">'+
-			     '<form id="fm_fc_procedure" method="post">' +
+			     '<form id="fm2_fc_process" method="post">' +
 		         '<input id="procedure_identify" name="procedure_id" type="hidden" value="">' +
 		         '</form><div class="easyui-panel" width=100%>' + 
-		         '<div><table id="dg2_fc_product" width="100%"></table></div>',
+		         '<div><table id="dg2_fc_process" width="100%"></table></div>',
 		modal: true,
 		buttons:[{
 			text:'保存',
@@ -351,16 +354,16 @@ function initproduct(TabPanel,FuncNodeId)
 	    			 return;
 	    		}	   
 				editIndex = undefined;
-				$('#fm_fc_procedure').form('submit',{
+				$('#fm2_fc_process').form('submit',{
 					url:'saveProcedure.do',
 					onSubmit:function(param){
-						param.procedure_itemlist = JSON.stringify(dg2.datagrid('getRows'));
+						param.process_itemlist = JSON.stringify(dg2.datagrid('getRows'));
 						},
 					success:function(data){
 						var result = eval('(' + data + ')');
 						$.messager.show({title: '信息', msg: result.message});
 						proceduredialog.dialog('close');
-						$('#fm_fc_procedure').form('clear');
+						$('#fm2_fc_process').form('clear');
 						dg2.datagrid('loadData',{total:0,rows:[]});					
                 	    procedurelist.datagrid('reload');   
 				    }    
@@ -370,15 +373,96 @@ function initproduct(TabPanel,FuncNodeId)
 			text:'清空',
 			width:90,
 			handler:function(){
-				$("#fm_fc_procedure").form('clear');
+				$("#fm2_fc_process").form('clear');
 				dg2.datagrid('loadData',{total:0,rows:[]});
 			}
 		}],
 	onClose:function()
 	{
 		dg2.datagrid('loadData',{total:0,rows:[]});					
-		$('#fm_fc_procedure').form('clear'); 
+		$('#fm2_fc_process').form('clear'); 
 	}
+	});
+	
+	var dg2 = $('#dg2_fc_process');
+	dg2.datagrid({
+		    title:"工序信息明细",
+		    singleSelect:true,
+		    toolbar:
+		    	[{text:'添加',
+				iconCls:'icon-add',
+				handler:function(){
+					 if(editIndex !=undefined)
+				     {
+						 if (!dg2.datagrid('validateRow', editIndex))
+							 return;
+						 dg2.datagrid('endEdit',editIndex);
+						 if(ifrepeat)
+					     {
+							    dg2.datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex); 
+							    return;
+						 }
+						 editIndex = undefined;
+					 }
+					 if(editIndex ==undefined){
+						 dg2.datagrid('appendRow',{});
+						 editIndex = dg2.datagrid('getRows').length-1;
+						 dg2.datagrid('beginEdit', editIndex);
+						 if(editIndex==0)
+							 dg2.datagrid('selectRow',editIndex).productprocess_sequence = 1;
+						 else
+							 dg2.datagrid('selectRow',editIndex).productprocess_sequence = dg2.datagrid('selectRow',editIndex-2).productprocess_sequence + 1;
+					 } 
+				}}
+		    	],
+			columns:[[
+		              {field:'productprocess_sequence',title:'工序顺序',width:100}, 
+				      {field:'productprocess_proceduce',title:'工序名称',width:100,
+		            	  editor:{
+		            		       type:'combobox',
+		            		       options:{
+		            		    	   required:true,
+		            		    	   editalbe:false,
+		            		    	   valueField:'procedure_id',
+		            		    	   textField:'procedure_id',
+		            		    	   url:'loadprocedurelist.do'		            		    	   
+		            		       }}},
+				      {field:'productprocess_failspro',title:'打回跳转',width:100,editor:{type:'validatebox',options:{required:true}}},,
+				 ]],
+	       onClickRow:function(index)
+	       {
+	    	   if (!dg2.datagrid('validateRow', editIndex)||index==editIndex)
+	    	   {
+	    		   dg2.datagrid('selectRow', editIndex);
+	    		   return;
+	    	   }	 
+	    	   else{
+	    		   dg2.datagrid('endEdit',editIndex);
+	    		   if(ifrepeat)
+	    		   {
+	    			   dg2.datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex);
+	    			   return;
+	    		   }	    			   
+	    		   dg2.datagrid('selectRow', index).datagrid('beginEdit', index);
+	    		   editIndex = index;
+	    	   }	 
+	       },
+	       onEndEdit:function(rowIndex,rowData,changes)
+	       {
+	          var rows = dg2.datagrid('getRows');
+	          for(var i=0;i<rows.length;i++)
+	          {
+	        	  if(i==rowIndex)
+	        		  continue;
+	        	  if(rowData.productprocess_proceduce==rows[i].productprocess_proceduce)
+	        	  {
+	        		  $.messager.alert('错误','工序不能重复，请修改！','错误');
+	        	  	  ifrepeat = true;
+	        	  	  return;
+	        	  } 
+	          }
+	          ifrepeat = false;
+	       }
 	});
 	
 	productdialog.dialog({
@@ -471,6 +555,12 @@ function initproduct(TabPanel,FuncNodeId)
 				    	                                    $.messager.show({title: '错误',msg: result.message});
 			           })
 			         }
-		     }]
+		     },"-",{
+					text:'产品工艺设置',
+					iconCls:'icon-add',
+					handler:function(){
+						    processdialog.dialog('open').dialog('setTitle','产品工艺设置');
+						    }
+					},]
    });
 }
