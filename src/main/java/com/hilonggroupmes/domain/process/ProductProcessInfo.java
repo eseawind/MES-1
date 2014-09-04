@@ -6,7 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
+
+import com.hilonggroupmes.domain.basedata.ProductInfo;
 
 /**
  * 产品工艺顺序信息实体类
@@ -47,7 +50,8 @@ public class ProductProcessInfo implements Serializable {
 	
 	private String productprocess_failspro;
 	
-	private Integer productprocess_forproduct;
+	@JoinColumn(name="productprocess_productid", referencedColumnName="product_id")
+	private ProductInfo productprocess_forproduct;
 
 	public Integer getProductprocess_id() {
 		return productprocess_id;
@@ -81,11 +85,11 @@ public class ProductProcessInfo implements Serializable {
 		this.productprocess_failspro = productprocess_failspro;
 	}
 
-	public Integer getProductprocess_forproduct() {
+	public ProductInfo getProductprocess_forproduct() {
 		return productprocess_forproduct;
 	}
 
-	public void setProductprocess_forproduct(Integer productprocess_forproduct) {
+	public void setProductprocess_forproduct(ProductInfo productprocess_forproduct) {
 		this.productprocess_forproduct = productprocess_forproduct;
 	}
 

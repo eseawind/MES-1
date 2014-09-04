@@ -53,4 +53,9 @@ public class ProcedureDaoImpl extends BaseDaoImpl<ProcedureInfo> implements
 		return super.get(ProcedureInfo.class, procedure_id);
 	}
 
+	@Override
+	public List<ProcedureInfo> getProcedureList() {
+		return super.find("from ProcedureInfo p");
+	}
+
 }

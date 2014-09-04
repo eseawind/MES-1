@@ -1,12 +1,20 @@
 package com.hilonggroupmes.domain.basedata;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.hilonggroupmes.domain.process.ProductProcessInfo;
 
 /**
  * 产品信息实体类
@@ -47,6 +55,10 @@ public class ProductInfo implements Serializable  {
 	private String product_spec;
 	
 	private String product_steelgrade;
+	
+	@OneToMany(mappedBy = "productprocess_forproduct",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+	@OrderBy(value="productprocess_sequence asc")
+	private List<ProductProcessInfo> product_processes = new ArrayList<ProductProcessInfo>();
 
 	public Long getProduct_id() {
 		return product_id;
@@ -86,5 +98,14 @@ public class ProductInfo implements Serializable  {
 
 	public void setProduct_steelgrade(String product_steelgrade) {
 		this.product_steelgrade = product_steelgrade;
-	}	
+	}
+
+	public List<ProductProcessInfo> getProduct_processes() {
+		return product_processes;
+	}
+
+	public void setProduct_processes(List<ProductProcessInfo> product_processes) {
+		this.product_processes = product_processes;
+	}
+
 }

@@ -23,5 +23,7 @@ public interface ProcedureService {
 	public List<ProcedureItemInfo> getProcedureItemByProcedure(Long procedure_id);
 	
 	public void saveProcedureItem(ProcedureItemInfo procedure_item);
+	
+	public List<ProcedureInfo> getProcedureList();
 
 }

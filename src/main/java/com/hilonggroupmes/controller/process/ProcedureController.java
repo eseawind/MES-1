@@ -17,8 +17,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hilonggroupmes.domain.basedata.ProductInfo;
 import com.hilonggroupmes.domain.process.ProcedureInfo;
 import com.hilonggroupmes.domain.process.ProcedureItemInfo;
+import com.hilonggroupmes.service.basedata.ProductService;
 import com.hilonggroupmes.service.process.ProcedureService;
 
 @Controller
@@ -26,6 +28,9 @@ public class ProcedureController {
 	
 	@Autowired
 	private ProcedureService procedureService;
+	
+	@Autowired
+	private ProductService productService;
 	
 	private Map<String,Object> resultinfo = new HashMap<String,Object>();
 
@@ -127,6 +132,27 @@ public class ProcedureController {
 			resultinfo.put("rows", pinlist);
 		}
 		return resultinfo;		
+	}
+	
+	@RequestMapping("*/loadProcedureList.do")
+	@ResponseBody
+	public List<ProcedureInfo> procedureList(){		
+		return procedureService.getProcedureList();
+	}
+	
+	@RequestMapping("*/addProductProcess.do")
+	@ResponseBody
+	public Map<String,Object> procedureList(Long product_id,String product_itemlist){	
+		
+		resultinfo.clear();
+		if(product_id ==null)
+		{
+			resultinfo.put("success", false);
+			resultinfo.put("message", "产品信息数据传输错误，请刷新后重新操作！");
+		}else {
+			ProductInfo pi = productService.findProductById(product_id);
+		}
+		return resultinfo;	
 	}
 
 }

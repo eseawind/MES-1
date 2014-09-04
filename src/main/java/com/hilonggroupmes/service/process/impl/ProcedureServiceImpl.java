@@ -75,4 +75,10 @@ public class ProcedureServiceImpl implements ProcedureService {
 		
 	}
 
+	@Override
+	public List<ProcedureInfo> getProcedureList() {
+		return procedureDao.getProcedureList();
+	}
+
+
 }

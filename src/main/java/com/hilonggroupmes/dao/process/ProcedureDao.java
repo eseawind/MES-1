@@ -22,5 +22,7 @@ public interface ProcedureDao extends BaseDao<ProcedureInfo> {
 	public void deleteProcedureByIds(String ids);
 	
 	public ProcedureInfo getProcedureById(Long procedure_id);
+	
+	public List<ProcedureInfo> getProcedureList();
 
 }

@@ -319,11 +319,12 @@ function initpipetype(TabPanel,FuncNodeId)
 //初始化产品管理界面
 function initproduct(TabPanel,FuncNodeId)
 {
-	var productlist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载产品列表界面
-	var productdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载产品详细信息对话框
+	var productlist = $('<table id="dg_"'+ FuncNodeId +'"></table>');  //加载产品列表界面
+	var productdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');    //加载产品详细信息对话框
 	var processdialog = $('<div id="dl2_"'+ FuncNodeId +'"></div>');   //加载工艺详细信息对话框
-	var editIndex = undefined; 
-	var ifrepeat = false;
+	var editIndex = undefined;  //当前正处于编辑状态的行索引
+	var ifrepeat = false;       //工序名称是否重复标识
+	var sequence = 0;           //工序序列
 	TabPanel.html(productdialog);
 	TabPanel.html(processdialog);
 	TabPanel.html(productlist);
@@ -355,17 +356,17 @@ function initproduct(TabPanel,FuncNodeId)
 	    		}	   
 				editIndex = undefined;
 				$('#fm2_fc_process').form('submit',{
-					url:'saveProcedure.do',
+					url:'saveProcess.do',
 					onSubmit:function(param){
 						param.process_itemlist = JSON.stringify(dg2.datagrid('getRows'));
 						},
 					success:function(data){
 						var result = eval('(' + data + ')');
 						$.messager.show({title: '信息', msg: result.message});
-						proceduredialog.dialog('close');
-						$('#fm2_fc_process').form('clear');
+						processdialog.dialog('close');
 						dg2.datagrid('loadData',{total:0,rows:[]});					
-                	    procedurelist.datagrid('reload');   
+                	    procedurelist.datagrid('reload'); 
+                	    sequence = 0;
 				    }    
 				})
 			}
@@ -373,23 +374,22 @@ function initproduct(TabPanel,FuncNodeId)
 			text:'清空',
 			width:90,
 			handler:function(){
-				$("#fm2_fc_process").form('clear');
 				dg2.datagrid('loadData',{total:0,rows:[]});
+				sequence = 0;
 			}
 		}],
 	onClose:function()
 	{
-		dg2.datagrid('loadData',{total:0,rows:[]});					
-		$('#fm2_fc_process').form('clear'); 
+		dg2.datagrid('loadData',{total:0,rows:[]});
+		sequence = 0 ;
 	}
 	});
 	
 	var dg2 = $('#dg2_fc_process');
 	dg2.datagrid({
-		    title:"工序信息明细",
 		    singleSelect:true,
 		    toolbar:
-		    	[{text:'添加',
+		    	[{text:'添加异步工序',
 				iconCls:'icon-add',
 				handler:function(){
 					 if(editIndex !=undefined)
@@ -405,15 +405,32 @@ function initproduct(TabPanel,FuncNodeId)
 						 editIndex = undefined;
 					 }
 					 if(editIndex ==undefined){
-						 dg2.datagrid('appendRow',{});
+						 dg2.datagrid('appendRow',{productprocess_sequence:(++sequence)});
 						 editIndex = dg2.datagrid('getRows').length-1;
 						 dg2.datagrid('beginEdit', editIndex);
-						 if(editIndex==0)
-							 dg2.datagrid('selectRow',editIndex).productprocess_sequence = 1;
-						 else
-							 dg2.datagrid('selectRow',editIndex).productprocess_sequence = dg2.datagrid('selectRow',editIndex-2).productprocess_sequence + 1;
 					 } 
-				}}
+				}},"-",
+				{text:'添加同步工序',
+					iconCls:'icon-add',
+					handler:function(){
+						 if(editIndex !=undefined)
+					     {
+							 if (!dg2.datagrid('validateRow', editIndex))
+								 return;
+							 dg2.datagrid('endEdit',editIndex);
+							 if(ifrepeat)
+						     {
+								    dg2.datagrid('selectRow', editIndex).datagrid('beginEdit', editIndex); 
+								    return;
+							 }
+							 editIndex = undefined;
+						 }
+						 if(editIndex ==undefined){
+							 dg2.datagrid('appendRow',{productprocess_sequence:(sequence)});
+							 editIndex = dg2.datagrid('getRows').length-1;
+							 dg2.datagrid('beginEdit', editIndex);
+						 } 
+					}}
 		    	],
 			columns:[[
 		              {field:'productprocess_sequence',title:'工序顺序',width:100}, 
@@ -423,9 +440,9 @@ function initproduct(TabPanel,FuncNodeId)
 		            		       options:{
 		            		    	   required:true,
 		            		    	   editalbe:false,
-		            		    	   valueField:'procedure_id',
-		            		    	   textField:'procedure_id',
-		            		    	   url:'loadprocedurelist.do'		            		    	   
+		            		    	   valueField:'procedure_code',
+		            		    	   textField:'procedure_name',
+		            		    	   url:'loadProcedureList.do'		            		    	   
 		            		       }}},
 				      {field:'productprocess_failspro',title:'打回跳转',width:100,editor:{type:'validatebox',options:{required:true}}},,
 				 ]],
