@@ -313,9 +313,7 @@ function initpipetype(TabPanel,FuncNodeId)
 			         }
 		     }]
    });
-	
-
-	}
+}
 //初始化产品管理界面
 function initproduct(TabPanel,FuncNodeId)
 {
