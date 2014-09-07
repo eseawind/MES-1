@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.hilonggroupmes.domain.process.ProcedureInfo;
 import com.hilonggroupmes.domain.process.ProcedureItemInfo;
+import com.hilonggroupmes.domain.process.ProductProcessInfo;
 
 public interface ProcedureService {
 	
@@ -25,5 +26,7 @@ public interface ProcedureService {
 	public void saveProcedureItem(ProcedureItemInfo procedure_item);
 	
 	public List<ProcedureInfo> getProcedureList();
+	
+	public List<ProductProcessInfo> getProductProcessByProduct(Long productprocess_id);
 
 }

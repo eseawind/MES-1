@@ -7,10 +7,14 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.hilonggroupmes.dao.basedata.ProductDao;
 import com.hilonggroupmes.dao.process.ProcedureDao;
 import com.hilonggroupmes.dao.process.ProcedureItemDao;
+import com.hilonggroupmes.dao.process.ProductProcessDao;
+import com.hilonggroupmes.domain.basedata.ProductInfo;
 import com.hilonggroupmes.domain.process.ProcedureInfo;
 import com.hilonggroupmes.domain.process.ProcedureItemInfo;
+import com.hilonggroupmes.domain.process.ProductProcessInfo;
 import com.hilonggroupmes.service.process.ProcedureService;
 
 @Service("procedureService")
@@ -20,7 +24,13 @@ public class ProcedureServiceImpl implements ProcedureService {
 	private ProcedureDao procedureDao;
 	
 	@Resource
+	private ProductDao productDao;
+	
+	@Resource
 	private ProcedureItemDao procedureItemDao;
+	
+	@Resource
+	private ProductProcessDao productProcessDao;
 
 	@Override
 	public Long getProcedureNum(Map<String, Object> queryPare) {
@@ -78,6 +88,18 @@ public class ProcedureServiceImpl implements ProcedureService {
 	@Override
 	public List<ProcedureInfo> getProcedureList() {
 		return procedureDao.getProcedureList();
+	}
+
+	@Override
+	public List<ProductProcessInfo> getProductProcessByProduct(
+			Long productprocess_id) {
+		List<ProductProcessInfo> ppilist = null;
+		ProductInfo pi = productDao.getProductById(productprocess_id);
+		if(pi!=null)
+		{
+			ppilist = productProcessDao.getProductProcessByProduct(pi);
+		}
+		return ppilist;
 	}
 
 

@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hilonggroupmes.domain.basedata.ProductInfo;
 import com.hilonggroupmes.domain.process.ProcedureInfo;
 import com.hilonggroupmes.domain.process.ProcedureItemInfo;
+import com.hilonggroupmes.domain.process.ProductProcessInfo;
 import com.hilonggroupmes.service.basedata.ProductService;
 import com.hilonggroupmes.service.process.ProcedureService;
 
@@ -142,7 +143,7 @@ public class ProcedureController {
 	
 	@RequestMapping("*/addProductProcess.do")
 	@ResponseBody
-	public Map<String,Object> procedureList(Long product_id,String product_itemlist){	
+	public Map<String,Object> procedureList(Long product_id,String process_itemlist) throws JsonParseException, JsonMappingException, IOException{	
 		
 		resultinfo.clear();
 		if(product_id ==null)
@@ -151,8 +152,39 @@ public class ProcedureController {
 			resultinfo.put("message", "产品信息数据传输错误，请刷新后重新操作！");
 		}else {
 			ProductInfo pi = productService.findProductById(product_id);
+			ObjectMapper mapper = new ObjectMapper();
+			JavaType jt = mapper.getTypeFactory().constructParametricType(ArrayList.class, ProductProcessInfo.class); 
+			List<ProductProcessInfo> ppi = (List<ProductProcessInfo>)mapper.readValue(process_itemlist, jt);
+			for(int i=0;i<ppi.size();i++)
+			{
+				ppi.get(i).setProductprocess_forproduct(pi);
+			}
+			pi.setProduct_processes(ppi);
+			productService.updateProduct(pi);
+			resultinfo.put("success", true);
+			resultinfo.put("message", "产品生产工艺设置成功！");
+			
 		}
 		return resultinfo;	
+	}
+	
+	@RequestMapping("*/loadProductProcess.do")
+	@ResponseBody
+	public Map<String,Object> productProcessList(HttpServletRequest resquest){		
+		resultinfo.clear();
+		List<ProductProcessInfo> ppilist = new ArrayList<ProductProcessInfo>();
+		String product_id = resquest.getParameter("id");
+		if(product_id!=""&&product_id!=null)
+		{
+			ppilist = procedureService.getProductProcessByProduct(Long.parseLong(product_id));
+		    resultinfo.put("rows", ppilist);
+		    resultinfo.put("total", ppilist.size());
+		}else
+		{
+			resultinfo.put("total", 0);
+			resultinfo.put("rows", ppilist);
+		}
+		return resultinfo;		
 	}
 
 }

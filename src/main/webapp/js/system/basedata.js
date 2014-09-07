@@ -336,7 +336,7 @@ function initproduct(TabPanel,FuncNodeId)
 		cache: false,
 		content: '<div class="easyui-panel" width="100%">'+
 			     '<form id="fm2_fc_process" method="post">' +
-		         '<input id="procedure_identify" name="procedure_id" type="hidden" value="">' +
+		         '<input id="procedure_identify" name="product_id" type="hidden" value="">' +
 		         '</form><div class="easyui-panel" width=100%>' + 
 		         '<div><table id="dg2_fc_process" width="100%"></table></div>',
 		modal: true,
@@ -354,7 +354,7 @@ function initproduct(TabPanel,FuncNodeId)
 	    		}	   
 				editIndex = undefined;
 				$('#fm2_fc_process').form('submit',{
-					url:'saveProcess.do',
+					url:'addProductProcess.do',
 					onSubmit:function(param){
 						param.process_itemlist = JSON.stringify(dg2.datagrid('getRows'));
 						},
@@ -363,7 +363,7 @@ function initproduct(TabPanel,FuncNodeId)
 						$.messager.show({title: '信息', msg: result.message});
 						processdialog.dialog('close');
 						dg2.datagrid('loadData',{total:0,rows:[]});					
-                	    procedurelist.datagrid('reload'); 
+						productlist.datagrid('reload'); 
                 	    sequence = 0;
 				    }    
 				})
@@ -490,7 +490,7 @@ function initproduct(TabPanel,FuncNodeId)
 		         '<input name="product_id" type="hidden" value="">' +
 		         '<div style="text-align:center;padding:5px"><label>产品名称：</label><input name="product_name" class="easyui-textbox" required="true"></div>' +		
 		         '<div style="text-align:center;padding:5px"><label>产品编码：</label><input name="product_code" class="easyui-textbox" required="true"></div>' +
-		         '<div style="text-align:center;padding:5px"><label>执行标准：</label><input name="product_spec" type="password" class="easyui-textbox"></div>' + 
+		         '<div style="text-align:center;padding:5px"><label>执行标准：</label><input name="product_spec" class="easyui-textbox" required="true"></div>' + 
 		         '<div style="text-align:center;padding:5px"><label>产品钢级：</label><input name="product_steelgrade" class="easyui-textbox" required="true"></div>' +
 		         '</form>',
 		modal: true,
@@ -574,8 +574,20 @@ function initproduct(TabPanel,FuncNodeId)
 					text:'产品工艺设置',
 					iconCls:'icon-add',
 					handler:function(){
+						   
+						procedure_identify
+							
+						    var rows = productlist.datagrid('getChecked');
+						    if(rows.length!=1)
+						    {
+						    	  $.messager.alert('警告','请选择记录!','警告');
+						    	  return;
+						    }		
+						    $('#procedure_identify').val(rows[0].product_id);
+						    dg2.datagrid({ url:'loadProductProcess.do',queryParams:{id:rows[0].product_id},method:"post"});
 						    processdialog.dialog('open').dialog('setTitle','产品工艺设置');
 						    }
+		     
 					},]
    });
 }

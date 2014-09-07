@@ -3,10 +3,12 @@ package com.hilonggroupmes.domain.process;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.hilonggroupmes.domain.basedata.ProductInfo;
@@ -50,6 +52,7 @@ public class ProductProcessInfo implements Serializable {
 	
 	private String productprocess_failspro;
 	
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="productprocess_productid", referencedColumnName="product_id")
 	private ProductInfo productprocess_forproduct;
 

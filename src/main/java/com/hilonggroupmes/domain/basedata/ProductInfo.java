@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hilonggroupmes.domain.process.ProductProcessInfo;
 
 /**
@@ -56,6 +57,7 @@ public class ProductInfo implements Serializable  {
 	
 	private String product_steelgrade;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "productprocess_forproduct",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
 	@OrderBy(value="productprocess_sequence asc")
 	private List<ProductProcessInfo> product_processes = new ArrayList<ProductProcessInfo>();
