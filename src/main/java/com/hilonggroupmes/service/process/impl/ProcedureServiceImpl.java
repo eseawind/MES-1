@@ -75,8 +75,7 @@ public class ProcedureServiceImpl implements ProcedureService {
 	@Override
 	public List<ProcedureItemInfo> getProcedureItemByProcedure(Long procedure_id) {
 		ProcedureInfo p = procedureDao.get(ProcedureInfo.class, procedure_id);
-		List<ProcedureItemInfo> pi= p.getProcedure_items();
-		return pi;
+		return p.getProcedure_items();
 	}
 
 	@Override

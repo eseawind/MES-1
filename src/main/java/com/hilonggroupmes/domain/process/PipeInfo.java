@@ -39,54 +39,54 @@ public class PipeInfo implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer linepipe_Id;
+	private Integer pipe_Id;
 	
-    private String linepipe_num;
+    private String pipe_num;
     
-    private Integer linepipe_type;
+    private Integer pipe_type;
     
-    private Integer linepipe_state;
+    private Integer pipe_state;
     
-    private Integer linepipe_forpro;
+    private String pipe_ordernum;
 
-	public Integer getLinepipe_Id() {
-		return linepipe_Id;
+	public Integer getPipe_Id() {
+		return pipe_Id;
 	}
 
-	public void setLinepipe_Id(Integer linepipe_Id) {
-		this.linepipe_Id = linepipe_Id;
+	public void setPipe_Id(Integer pipe_Id) {
+		this.pipe_Id = pipe_Id;
 	}
 
-	public String getLinepipe_num() {
-		return linepipe_num;
+	public String getPipe_num() {
+		return pipe_num;
 	}
 
-	public void setLinepipe_num(String linepipe_num) {
-		this.linepipe_num = linepipe_num;
+	public void setPipe_num(String pipe_num) {
+		this.pipe_num = pipe_num;
 	}
 
-	public Integer getLinepipe_type() {
-		return linepipe_type;
+	public Integer getPipe_type() {
+		return pipe_type;
 	}
 
-	public void setLinepipe_type(Integer linepipe_type) {
-		this.linepipe_type = linepipe_type;
+	public void setPipe_type(Integer pipe_type) {
+		this.pipe_type = pipe_type;
 	}
 
-	public Integer getLinepipe_state() {
-		return linepipe_state;
+	public Integer getPipe_state() {
+		return pipe_state;
 	}
 
-	public void setLinepipe_state(Integer linepipe_state) {
-		this.linepipe_state = linepipe_state;
+	public void setPipe_state(Integer pipe_state) {
+		this.pipe_state = pipe_state;
 	}
 
-	public Integer getLinepipe_forpro() {
-		return linepipe_forpro;
+	public String getPipe_ordernum() {
+		return pipe_ordernum;
 	}
 
-	public void setLinepipe_forpro(Integer linepipe_forpro) {
-		this.linepipe_forpro = linepipe_forpro;
+	public void setPipe_ordernum(String pipe_ordernum) {
+		this.pipe_ordernum = pipe_ordernum;
 	}
 
 }

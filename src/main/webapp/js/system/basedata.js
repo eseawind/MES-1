@@ -2,11 +2,11 @@
  * 
  */
 
-//初始化用户管理界面
+//初始化设备管理界面
 function initequipment(TabPanel,FuncNodeId)
 {
-	var equipmentlist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载用户列表界面
-	var equipmentdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载用户详细信息对话框
+	var equipmentlist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载设备列表界面
+	var equipmentdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载设备详细信息对话框
 	TabPanel.html(equipmentdialog);
 	TabPanel.html(equipmentlist);
 	
@@ -110,8 +110,8 @@ function initequipment(TabPanel,FuncNodeId)
 
 function initmaterial(TabPanel,FuncNodeId)
 {
-	var materiallist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载用户列表界面
-	var materialdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载用户详细信息对话框
+	var materiallist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载物料列表界面
+	var materialdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载物料详细信息对话框
 	TabPanel.html(materialdialog);
 	TabPanel.html(materiallist);
 	
