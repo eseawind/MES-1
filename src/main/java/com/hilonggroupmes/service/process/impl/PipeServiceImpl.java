@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.hilonggroupmes.dao.process.PipeDao;
 import com.hilonggroupmes.domain.process.PipeInfo;
-import com.hilonggroupmes.domain.process.ProcedureInfo;
 import com.hilonggroupmes.service.process.PipeService;
 
 @Service("pipeService")
@@ -48,12 +47,12 @@ public class PipeServiceImpl implements PipeService {
 
 	@Override
 	public Long savePipe(PipeInfo pipe) {
-		return pipeDao
+		return (Long)pipeDao.save(pipe);
 	}
 
 	@Override
 	public void updatePipe(PipeInfo pipe) {
-		// TODO Auto-generated method stub
+		pipeDao.update(pipe);
 		
 	}
 

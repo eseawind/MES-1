@@ -3,9 +3,10 @@ package com.hilonggroupmes.dao.process;
 import java.util.List;
 import java.util.Map;
 
+import com.hilonggroupmes.dao.base.BaseDao;
 import com.hilonggroupmes.domain.process.PipeInfo;
 
-public interface PipeDao {
+public interface PipeDao extends BaseDao<PipeInfo> {
 	
 	/**
 	 * 根据主键ID删除工序信息实体
