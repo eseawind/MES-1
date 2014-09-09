@@ -47,10 +47,11 @@ public class ProcedureServiceImpl implements ProcedureService {
 	@Override
 	public Boolean deleteProcedureByIds(String procedureIds) {
 		try{
-			procedureDao.deleteProcedureByIds(procedureIds);			
-		}catch(Exception e)
-		{
-			System.out.println(e.toString());
+		List<ProcedureInfo> pi = procedureDao.getProcedureListByIds(procedureIds);
+		for(int i=0;i<pi.size();i++)
+			procedureDao.delete(pi.get(i));
+		}catch(Exception e){
+			System.out.print(e.toString());
 			return false;
 		}
 		return true;
@@ -100,6 +101,4 @@ public class ProcedureServiceImpl implements ProcedureService {
 		}
 		return ppilist;
 	}
-
-
 }

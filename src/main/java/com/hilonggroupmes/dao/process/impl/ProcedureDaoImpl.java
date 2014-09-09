@@ -42,13 +42,6 @@ public class ProcedureDaoImpl extends BaseDaoImpl<ProcedureInfo> implements
 	}
 
 	@Override
-	public void deleteProcedureByIds(String ids) {
-		super.executeHql("delete from ProcedureInfo p "
-				+ "where p.procedure_id in(" + ids +")");
-		
-	}
-
-	@Override
 	public ProcedureInfo getProcedureById(Long procedure_id) {
 		return super.get(ProcedureInfo.class, procedure_id);
 	}
@@ -56,6 +49,11 @@ public class ProcedureDaoImpl extends BaseDaoImpl<ProcedureInfo> implements
 	@Override
 	public List<ProcedureInfo> getProcedureList() {
 		return super.find("from ProcedureInfo p");
+	}
+
+	@Override
+	public List<ProcedureInfo> getProcedureListByIds(String procedure_ids) {
+		return super.find("from ProcedureInfo pi where pi.procedure_id in("+ procedure_ids +")");
 	}
 
 }

@@ -19,10 +19,10 @@ public interface ProcedureDao extends BaseDao<ProcedureInfo> {
 
 	public Long getProcedureNum(Map<String,Object> paremeters);
 	
-	public void deleteProcedureByIds(String ids);
-	
 	public ProcedureInfo getProcedureById(Long procedure_id);
 	
 	public List<ProcedureInfo> getProcedureList();
+	
+	public List<ProcedureInfo> getProcedureListByIds(String procedure_ids);
 
 }

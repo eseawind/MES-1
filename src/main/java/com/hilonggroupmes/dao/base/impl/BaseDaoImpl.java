@@ -187,4 +187,5 @@ public class BaseDaoImpl<T> implements BaseDao<T> {
 		}
 		return q.executeUpdate();
 	}
+
 }

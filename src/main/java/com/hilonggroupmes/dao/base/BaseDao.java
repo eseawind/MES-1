@@ -29,7 +29,6 @@ public interface BaseDao<T> {
 	 */
 	public void delete(T o);
 
-
 	/**
 	 * 更新一个对象
 	 * 
