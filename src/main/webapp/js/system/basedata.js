@@ -14,6 +14,7 @@ function initequipment(TabPanel,FuncNodeId)
 	    title: '设备信息',
 		width: 300,
 		height: 250,
+		fit:true,
 		closed: true,
 		cache: false,
 		content: '<form id="fm_fc_equipment" method="post">' +
