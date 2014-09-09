@@ -54,6 +54,7 @@ function initequipment(TabPanel,FuncNodeId)
 	equipmentlist.datagrid({
 	     url:'listEquipment.do',
 		 loadMsg:'正在加载设备信息，请稍后...',
+		 height:$(window).height()-130,
 		 pagination:true,
 		 columns:[[
               {field:'equipment_id',checkbox:true}, 
@@ -61,7 +62,12 @@ function initequipment(TabPanel,FuncNodeId)
 		      {field:'equipment_code',title:'设备编号',width:100},
 		      {field:'equipment_type',title:'设备类型',width:100},
 		      {field:'equipment_manufacturer',title:'生产厂商',width:100},
-		      {field:'equipment_state',title:'用户状态',width:100,align:'center'}
+		      {field:'equipment_state',title:'设备状态',width:100,align:'center',formatter:function(value,row){
+		    		 if(row.equipment_state==true)
+		    			 return '启用';
+		    		 if(row.equipment_state==false)
+		    			 return '禁用';
+		    	  }}
 		 ]],
 	     toolbar:[{
 			text:'添加',
@@ -157,6 +163,7 @@ function initmaterial(TabPanel,FuncNodeId)
 	materiallist.datagrid({
 	     url:'listMaterial.do',
 		 loadMsg:'正在加载用户信息，请稍后...',
+		 height:$(window).height()-130,
 		 pagination:true,
 		 columns:[[
               {field:'material_id',checkbox:true}, 
@@ -260,6 +267,7 @@ function initpipetype(TabPanel,FuncNodeId)
 
 	pipetypelist.datagrid({
 	     url:'listPipeType.do',
+	     height:$(window).height()-130,
 		 loadMsg:'正在加载钢管类型信息，请稍后...',
 		 pagination:true,
 		 columns:[[
@@ -520,6 +528,7 @@ function initproduct(TabPanel,FuncNodeId)
 
 	productlist.datagrid({
 	     url:'listProduct.do',
+	     height:$(window).height()-130,
 		 loadMsg:'正在加载产品类型信息，请稍后...',
 		 pagination:true,
 		 columns:[[

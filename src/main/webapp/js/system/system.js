@@ -50,13 +50,19 @@ function inituser(TabPanel,FuncNodeId)
 
 	userlist.datagrid({
 	     url:'listUser.do',
+	     height:$(window).height()-130,
 		 loadMsg:'正在加载用户信息，请稍后...',
 		 pagination:true,
 		 columns:[[
               {field:'user_id',checkbox:true}, 
 		      {field:'user_accont',title:'用户账号',width:100},
 		      {field:'user_name',title:'用户名称',width:100},
-		      {field:'user_state',title:'用户状态',width:100,align:'center'}
+		      {field:'user_state',title:'用户状态',width:100,align:'center', formatter:function(value,row){
+		    		 if(row.user_state==true)
+		    			 return '启用';
+		    		 if(row.user_state==false)
+		    			 return '禁用';
+		    	  }}
 		 ]],
 	     toolbar:[{
 			text:'添加',
@@ -161,12 +167,4 @@ function initlog(TabPanel,FuncNodeId)
 				handler:function(){alert('save')}
 				}]
 	 });
-}
-
-function formatUserState(val)
-{
-    if(!val)
-    	return '禁用';
-    else
-    	return '启用';
 }

@@ -165,6 +165,7 @@ function initprocedure(TabPanel,FuncNodeId)
 
 	procedurelist.datagrid({
 	     url:'listProcedure.do',
+	     height:$(window).height()-130,
 		 loadMsg:'正在加载工序信息，请稍后...',
 		 pagination:true,
 		 columns:[[
