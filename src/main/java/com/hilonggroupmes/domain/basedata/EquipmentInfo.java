@@ -48,7 +48,7 @@ public class EquipmentInfo implements Serializable {
 	
 	private String equipment_code;
 	
-	private Boolean equipment_state;
+	private Integer equipment_state;
 	
 	private String equipment_manufacturer;
 
@@ -84,11 +84,11 @@ public class EquipmentInfo implements Serializable {
 		this.equipment_code = equipment_code;
 	}
 
-	public Boolean getEquipment_state() {
+	public Integer getEquipment_state() {
 		return equipment_state;
 	}
 
-	public void setEquipment_state(Boolean equipment_state) {
+	public void setEquipment_state(Integer equipment_state) {
 		this.equipment_state = equipment_state;
 	}
 

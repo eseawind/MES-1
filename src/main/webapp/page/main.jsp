@@ -17,7 +17,7 @@
 </head>
 <body class="easyui-layout">
         <div data-options="region:'north'" style="height:100px;background-color:#B9B9FF;">
-        <div style="color:#000000;font-size:22px;font-weight:bold;margin:35px 10px;">上海海隆复合钢管制造有限公司MES信息管理系统</div>
+        <!-- <div style="color:#000000;font-size:22px;font-weight:bold;margin:35px 10px;">上海海隆复合钢管制造有限公司MES信息管理系统</div> -->
         </div>
         <div data-options="region:'west',split:true" title="功能列表" style="width:200px;">
             <div class="easyui-accordion" data-options="fit:true,border:false">

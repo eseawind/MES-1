@@ -7,6 +7,7 @@ function initequipment(TabPanel,FuncNodeId)
 {
 	var equipmentlist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载设备列表界面
 	var equipmentdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载设备详细信息对话框
+	//TabPanel.panel('st='padding:1px;';
 	TabPanel.html(equipmentdialog);
 	TabPanel.html(equipmentlist);
 	
@@ -14,7 +15,6 @@ function initequipment(TabPanel,FuncNodeId)
 	    title: '设备信息',
 		width: 300,
 		height: 250,
-		fit:true,
 		closed: true,
 		cache: false,
 		content: '<form id="fm_fc_equipment" method="post">' +
@@ -23,7 +23,7 @@ function initequipment(TabPanel,FuncNodeId)
 		         '<div style="text-align:center;padding:5px"><label>设备编号：</label><input name="equipment_code" class="easyui-textbox" required="true"></div>' +
 		         '<div style="text-align:center;padding:5px"><label>设备类型：</label><input name="equipment_type" class="easyui-textbox" required="true"></div>' + 
 		         '<div style="text-align:center;padding:5px"><label>生产厂商：</label><input name="equipment_manufacturer" class="easyui-textbox" required="true"></div>' +
-		         '<div style="text-align:center;padding:5px"><label>设备状态：</label><input name="equipment_state" class="easyui-textbox" required="true"></div>' +
+		         '<div style="text-align:center;padding:5px"><label>设备状态：</label><input id="fm_fc_equipment_id" name="equipment_state" class="easyui-combobox" required="true"></div>' +
 		         '</form>',
 		modal: true,
 		buttons:[{
@@ -51,7 +51,14 @@ function initequipment(TabPanel,FuncNodeId)
 		}]
 	});
 
+    $("#fm_fc_equipment_id").combobox({
+      valueField:'code',
+      textField:'text',
+      data:[{code:1,text:'正常'},{code:2,text:'维护'},{code:3,text:'停用'},{code:4,text:'报废'}]
+    });
+
 	equipmentlist.datagrid({
+		 title:'设备列表',
 	     url:'listEquipment.do',
 		 loadMsg:'正在加载设备信息，请稍后...',
 		 height:$(window).height()-130,
@@ -63,11 +70,24 @@ function initequipment(TabPanel,FuncNodeId)
 		      {field:'equipment_type',title:'设备类型',width:100},
 		      {field:'equipment_manufacturer',title:'生产厂商',width:100},
 		      {field:'equipment_state',title:'设备状态',width:100,align:'center',formatter:function(value,row){
-		    		 if(row.equipment_state==true)
-		    			 return '启用';
-		    		 if(row.equipment_state==false)
-		    			 return '禁用';
-		    	  }}
+		    		 if(row.equipment_state==1)
+		    			 return '正常';
+		    		 if(row.equipment_state==2)
+		    			 return '维护';
+		    		 if(row.equipment_state==3)
+		    			 return '停用';
+		    		 if(row.equipment_state==4)
+		    			 return '报废';		    		 
+		    	  },
+		    	  styler:function(value,row,index){
+		    		  switch(value)
+		    		  {
+		    		     case 1:return 'color:green;';
+		    		     case 2:return 'color:yellow;';
+		    		     case 3:return 'color:red;';
+		    		     case 4:return 'color:blue;';
+		    		  }	  
+		    	  }},
 		 ]],
 	     toolbar:[{
 			text:'添加',
@@ -186,7 +206,7 @@ function initmaterial(TabPanel,FuncNodeId)
 					    var rows = materiallist.datagrid('getChecked');
 					    if(rows.length!=1)
 					    {
-					    	  $.messager.alert('警告','请选择条记录!','警告');
+					    	  $.messager.alert('警告','请选择单条记录!','警告');
 					    	  return;
 					    }		
 					    $('#fm_fc_material').form('load','loadMaterial.do?id=' + rows[0].material_id);

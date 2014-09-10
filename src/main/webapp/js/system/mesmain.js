@@ -26,7 +26,7 @@ $(document).ready(function(){
 	          		else{
 	          			$('#mainwin').tabs('add',{
 	          				 title: node.text,        			 
-	          				 closable: true
+	          				 closable: true,
 	          			});
 	          			//根据当前所选中的tabpanel初始化对应的界面
 	          			var currentTabPanel = $("#mainwin").tabs('getSelected');

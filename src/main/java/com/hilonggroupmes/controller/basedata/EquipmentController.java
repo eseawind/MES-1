@@ -57,7 +57,7 @@ public class EquipmentController {
 	@ResponseBody
 	public Map<String,Object> userSave(Long equipment_id,String equipment_name,
 			                           String equipment_type,String equipment_code,
-			                           Boolean equipment_state,String equipment_manufacturer){
+			                           Integer equipment_state,String equipment_manufacturer){
 		resultinfo.clear();
 		EquipmentInfo equipment =new EquipmentInfo();
 		equipment.setEquipment_name(equipment_name);
