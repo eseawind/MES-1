@@ -27,6 +27,8 @@ $(document).ready(function(){
 	          			$('#mainwin').tabs('add',{
 	          				 title: node.text,        			 
 	          				 closable: true,
+	          				 content:'<div style="padding:1px"><table id="dg_'+ node.id +'"></table>'+
+	          				 '<div id="dl_'+  node.id +'"></div>'+'</div>'
 	          			});
 	          			//根据当前所选中的tabpanel初始化对应的界面
 	          			var currentTabPanel = $("#mainwin").tabs('getSelected');

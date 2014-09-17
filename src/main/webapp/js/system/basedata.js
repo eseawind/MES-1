@@ -5,11 +5,11 @@
 //初始化设备管理界面
 function initequipment(TabPanel,FuncNodeId)
 {
-	var equipmentlist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载设备列表界面
-	var equipmentdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载设备详细信息对话框
+	var equipmentlist = $('#dg_'+ FuncNodeId); //加载设备列表界面
+	var equipmentdialog = $('#dl_'+ FuncNodeId);   //加载设备详细信息对话框
 	//TabPanel.panel('st='padding:1px;';
-	TabPanel.html(equipmentdialog);
-	TabPanel.html(equipmentlist);
+	//TabPanel.html(equipmentdialog);
+	//TabPanel.html(equipmentlist);
 	
 	equipmentdialog.dialog({
 	    title: '设备信息',
@@ -137,10 +137,10 @@ function initequipment(TabPanel,FuncNodeId)
 
 function initmaterial(TabPanel,FuncNodeId)
 {
-	var materiallist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载物料列表界面
+	var materiallist = $('#dg_'+ FuncNodeId); //加载物料列表界面
 	var materialdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载物料详细信息对话框
 	TabPanel.html(materialdialog);
-	TabPanel.html(materiallist);
+	//TabPanel.html(materiallist);
 	
 	materialdialog.dialog({
 	    title: '物料信息',
@@ -242,10 +242,10 @@ function initmaterial(TabPanel,FuncNodeId)
 //初始化钢管类型
 function initpipetype(TabPanel,FuncNodeId)
 {
-	var pipetypelist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载钢管类型界面
+	var pipetypelist = $('#dg_'+ FuncNodeId); //加载钢管类型界面
 	var pipetypedialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载钢管信息对话框
 	TabPanel.html(pipetypedialog);
-	TabPanel.html(pipetypelist);
+	//TabPanel.html(pipetypelist);
 	
 	pipetypedialog.dialog({
 	    title: '钢管类型信息',
@@ -346,7 +346,7 @@ function initpipetype(TabPanel,FuncNodeId)
 //初始化产品管理界面
 function initproduct(TabPanel,FuncNodeId)
 {
-	var productlist = $('<table id="dg_"'+ FuncNodeId +'"></table>');  //加载产品列表界面
+	var productlist = $('#dg_'+ FuncNodeId);  //加载产品列表界面
 	var productdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');    //加载产品详细信息对话框
 	var processdialog = $('<div id="dl2_"'+ FuncNodeId +'"></div>');   //加载工艺详细信息对话框
 	var editIndex = undefined;  //当前正处于编辑状态的行索引
@@ -354,7 +354,7 @@ function initproduct(TabPanel,FuncNodeId)
 	var sequence = 0;           //工序序列
 	TabPanel.html(productdialog);
 	TabPanel.html(processdialog);
-	TabPanel.html(productlist);
+	//TabPanel.html(productlist);
 	
 	processdialog.dialog({
 	    title: '工艺信息设置',

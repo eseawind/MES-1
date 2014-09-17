@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 import com.hilonggroupmes.dao.base.impl.BaseDaoImpl;
 import com.hilonggroupmes.dao.process.PipeDao;
 import com.hilonggroupmes.domain.process.PipeInfo;
-import com.hilonggroupmes.domain.process.ProcedureInfo;
 import com.hilonggroupmes.utils.CommonUtils;
 
 @Repository("pipeDao")
