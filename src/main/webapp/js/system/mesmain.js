@@ -3,6 +3,9 @@
  */
 
 $(document).ready(function(){	
+	
+	var mainPanel = $('#mainwin');
+	
     $('#t_base').tree({
 	       data: [{
 	                id:'fc_equipment',
@@ -19,21 +22,10 @@ $(document).ready(function(){
 	               }],
 	              onClick:function(node){
 	          		//如果功能界面没加载过，创建新功能界面并显示，如果已加载过，直接调用已加载的界面
-	          		if($('#mainwin').tabs("getTab",node.text)!=null)
-	          		{
-	          			$('#mainwin').tabs("select",node.text);
-	          		}
-	          		else{
-	          			$('#mainwin').tabs('add',{
-	          				 title: node.text,        			 
-	          				 closable: true,
-	          				 content:'<div style="padding:1px"><table id="dg_'+ node.id +'"></table>'+
-	          				 '<div id="dl_'+  node.id +'"></div>'+'</div>'
-	          			});
-	          			//根据当前所选中的tabpanel初始化对应的界面
-	          			var currentTabPanel = $("#mainwin").tabs('getSelected');
-	          			initfuncUI(currentTabPanel,node.id);
-	          		}
+	          		if(mainPanel.tabs("getTab",node.text)!=null)
+	          			mainPanel.tabs("select",node.text);
+	          		else
+	          			initfuncUI(mainPanel,node.id);
 	          	 }
      });
     
@@ -46,20 +38,11 @@ $(document).ready(function(){
                     text: '生产计划管理'
 		         }],
 	              onClick:function(node){
-	          		//如果功能界面没加载过，创建新功能界面并显示，如果已加载过，直接调用已加载的界面
-	          		if($('#mainwin').tabs("getTab",node.text)!=null)
-	          		{
-	          			$('#mainwin').tabs("select",node.text);
-	          		}
-	          		else{
-	          			$('#mainwin').tabs('add',{
-	          				 title: node.text,        			 
-	          				 closable: true
-	          			});
-	          			//根据当前所选中的tabpanel初始化对应的界面
-	          			var currentTabPanel = $("#mainwin").tabs('getSelected');
-	          			initfuncUI(currentTabPanel,node.id);
-	          		}
+	            	//如果功能界面没加载过，创建新功能界面并显示，如果已加载过，直接调用已加载的界面
+		          		if(mainPanel.tabs("getTab",node.text)!=null)
+		          			mainPanel.tabs("select",node.text);
+		          		else
+		          			initfuncUI(mainPanel,node.id);
 	          	 }
 	             
      });
@@ -75,20 +58,11 @@ $(document).ready(function(){
                      text: '工艺信息审批'
                   }],
                   onClick:function(node){
-              		//如果功能界面没加载过，创建新功能界面并显示，如果已加载过，直接调用已加载的界面
-              		if($('#mainwin').tabs("getTab",node.text)!=null)
-              		{
-              			$('#mainwin').tabs("select",node.text);
-              		}
-              		else{
-              			$('#mainwin').tabs('add',{
-              				 title: node.text,        			 
-              				 closable: true
-              			});
-              			//根据当前所选中的tabpanel初始化对应的界面
-              			var currentTabPanel = $("#mainwin").tabs('getSelected');
-              			initfuncUI(currentTabPanel,node.id);
-              		}
+  	          		//如果功能界面没加载过，创建新功能界面并显示，如果已加载过，直接调用已加载的界面
+  	          		if(mainPanel.tabs("getTab",node.text)!=null)
+  	          			mainPanel.tabs("select",node.text);
+  	          		else
+  	          			initfuncUI(mainPanel,node.id);
               	 }     
      });
      $('#t_product').tree({
@@ -106,20 +80,11 @@ $(document).ready(function(){
                      text: '生产任务跟踪'
                   }],
                   onClick:function(node){
-              		//如果功能界面没加载过，创建新功能界面并显示，如果已加载过，直接调用已加载的界面
-              		if($('#mainwin').tabs("getTab",node.text)!=null)
-              		{
-              			$('#mainwin').tabs("select",node.text);
-              		}
-              		else{
-              			$('#mainwin').tabs('add',{
-              				 title: node.text,        			 
-              				 closable: true
-              			});
-              			//根据当前所选中的tabpanel初始化对应的界面
-              			var currentTabPanel = $("#mainwin").tabs('getSelected');
-              			initfuncUI(currentTabPanel,node.id);
-              		}
+                	//如果功能界面没加载过，创建新功能界面并显示，如果已加载过，直接调用已加载的界面
+  	          		if(mainPanel.tabs("getTab",node.text)!=null)
+  	          			mainPanel.tabs("select",node.text);
+  	          		else
+  	          			initfuncUI(mainPanel,node.id);
               	 }	        
       });
      $('#t_system').tree({
@@ -137,41 +102,32 @@ $(document).ready(function(){
                       text: '日志管理'
                  }],
                  onClick:function(node){
-             		//如果功能界面没加载过，创建新功能界面并显示，如果已加载过，直接调用已加载的界面
-             		if($('#mainwin').tabs("getTab",node.text)!=null)
-             		{
-             			$('#mainwin').tabs("select",node.text);
-             		}
-             		else{
-             			$('#mainwin').tabs('add',{
-             				 title: node.text,        			 
-             				 closable: true
-             			});
-             			//根据当前所选中的tabpanel初始化对应的界面
-             			var currentTabPanel = $("#mainwin").tabs('getSelected');
-             			initfuncUI(currentTabPanel,node.id);
-             		}
+                	//如果功能界面没加载过，创建新功能界面并显示，如果已加载过，直接调用已加载的界面
+ 	          		if(mainPanel.tabs("getTab",node.text)!=null)
+ 	          			mainPanel.tabs("select",node.text);
+ 	          		else
+ 	          			initfuncUI(mainPanel,node.id);
              	 }
     });
 
 	//根据不同的功能节点标识初始化不同的功能界面
-	function initfuncUI(tabPanel,funcNodeId)
+	function initfuncUI(funcWin,funcNodeId)
 	{
 		if(funcNodeId == 'fc_user')
-			inituser(tabPanel,funcNodeId);
+			inituser(funcWin);
 		if(funcNodeId == 'fc_role')
-			initrole(tabPanel,funcNodeId);
+			initrole(funcWin);
 		if(funcNodeId == 'fc_log')
-			initlog(tabPanel,funcNodeId);
+			initlog(funcWin);
 		if(funcNodeId == 'fc_equipment')
-			initequipment(tabPanel,funcNodeId);
+			initequipment(funcWin);
 		if(funcNodeId == 'fc_material')
-			initmaterial(tabPanel,funcNodeId);
+			initmaterial(funcWin);
 		if(funcNodeId == 'fc_pipetype')
-			initpipetype(tabPanel,funcNodeId);
+			initpipetype(funcWin);
 		if(funcNodeId == 'fc_product')
-			initproduct(tabPanel,funcNodeId);
+			initproduct(funcWin);
 		if(funcNodeId == 'fc_procedure')
-			initprocedure(tabPanel,funcNodeId);		
+			initprocedure(funcWin);		
 	}
 })

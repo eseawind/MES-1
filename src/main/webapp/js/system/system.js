@@ -3,12 +3,19 @@
  */
 
 //初始化用户管理界面
-function inituser(TabPanel,FuncNodeId)
+function inituser(funcWin)
 {
-	var userlist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载用户列表界面
-	var userdialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载用户详细信息对话框
-	TabPanel.html(userdialog);
-	TabPanel.html(userlist);
+	funcWin.tabs('add',{
+		 title: '用户管理',        			 
+		 closable: true,
+		 content:'<div style="padding:1px">' +
+			     '<table id="dg_fc_user"></table>'+
+		         '<div id="dl_fc_user"></div>' +
+			     '</div>'
+	});
+	
+	var userlist = $('#dg_fc_user'); //加载用户列表界面
+	var userdialog = $('#dl_fc_user');   //加载用户详细信息对话框
 	
 	userdialog.dialog({
 	    title: '用户信息',
@@ -20,7 +27,7 @@ function inituser(TabPanel,FuncNodeId)
 		         '<input name="user_id" type="hidden" value="">' +
 		         '<div style="text-align:center;padding:5px"><label>用户账号：</label><input name="user_accont" class="easyui-textbox" required="true"></div>' +		
 		         '<div style="text-align:center;padding:5px"><label>用户名称：</label><input name="user_name" class="easyui-textbox" required="true"></div>' +
-		         '<div style="text-align:center;padding:5px"><label>用户密码：</label><input name="user_password" type="password" class="easyui-textbox"></div>' + 
+		         '<div style="text-align:center;padding:5px"><label>用户密码：</label><input name="user_password" type="password" class="easyui-textbox" required="true"></div>' + 
 		         '<div style="text-align:center;padding:5px"><label>用户角色：</label><input name="user_role" class="easyui-textbox" required="true"></div>' +
 		         '<div style="text-align:center;padding:5px"><label>用户状态：</label><input name="user_state" class="easyui-textbox" required="true"></div>' +
 		         '</form>',
@@ -111,12 +118,20 @@ function inituser(TabPanel,FuncNodeId)
 }
 
 //初始化角色管理界面
-function initrole(TabPanel,FuncNodeId)
+function initrole(funcWin)
 {
-	var rolelist = $('<table id="dg_"'+ FuncNodeId +'"></table>');
-	TabPanel.html(rolelist);
+	funcWin.tabs('add',{
+		 title: '角色管理',        			 
+		 closable: true,
+		 content:'<div style="padding:1px">' +
+			     '<table id="dg_fc_role"></table>'+
+		         '<div id="dl_fc_role"></div>' +
+			     '</div>'
+	});
+	
+	var rolelist = $('#dg_fc_role');
+
 	rolelist.datagrid({
-	     //url:'datagrid_data.json',
 		 pagination:true,
 		 columns:[[
               {field:'role_id',checkbox:true}, 
@@ -140,12 +155,20 @@ function initrole(TabPanel,FuncNodeId)
 	 });
 }
 //初始化日志管理界面
-function initlog(TabPanel,FuncNodeId)
+function initlog(funcWin)
 {
-	var loglist = $('<table id="dg_"'+ FuncNodeId +'"></table>');
-	TabPanel.html(loglist);
+	funcWin.tabs('add',{
+		 title: '日志管理',        			 
+		 closable: true,
+		 content:'<div style="padding:1px">' +
+			     '<table id="dg_fc_log"></table>'+
+		         '<div id="dl_fc_log"></div>' +
+			     '</div>'
+	});
+	
+	var loglist = $('#dg_fc_log');
+
 	loglist.datagrid({
-	     //url:'datagrid_data.json',
 		 pagination:true,
 		 columns:[[
               {field:'log_id',checkbox:true}, 

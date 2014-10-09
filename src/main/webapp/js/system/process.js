@@ -3,14 +3,23 @@
  */
 
 //初始化工序管理界面
-function initprocedure(TabPanel,FuncNodeId)
+function initprocedure(funcWin)
 {
-	var procedurelist = $('<table id="dg_"'+ FuncNodeId +'"></table>'); //加载工序列表界面
-	var proceduredialog = $('<div id="dl_"'+ FuncNodeId +'"></div>');   //加载工序详细信息对话框
+	
+	funcWin.tabs('add',{
+		 title: '工序管理',        			 
+		 closable: true,
+		 content:'<div style="padding:1px">' +
+			     '<table id="dg_fc_procedure"></table>'+
+		         '<div id="dl_fc_procedure"></div>' +
+			     '</div>'
+	});
+	
+	var procedurelist = $('#dg_fc_procedure'); //加载工序列表界面
+	var proceduredialog = $('#dl_fc_procedure');   //加载工序详细信息对话框
+	
 	var editIndex = undefined; 
 	var ifrepeat = false;
-	TabPanel.html(proceduredialog);
-	TabPanel.html(procedurelist);
 	var itemlist = new Array();	
 	proceduredialog.dialog({
 	    title: '工序信息',
